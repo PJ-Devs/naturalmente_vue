@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { getProducts } from '../API/products'
+
+const products = ref([])
+const loading = ref(false)
+getProducts(loading, products)
+</script>
 
 <template>
   <section class="h-[100dvh] mx-[10dvw] mt-[2dvh] flex items-center relative">

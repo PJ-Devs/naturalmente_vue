@@ -20,21 +20,11 @@ const router = createRouter({
       name: 'Register',
       component: () => import('../views/RegisterView.vue')
     },
-    // {
-    //   path: '/profile',
-    //   name: 'Profile',
-    //   component: () => import('../views/ProfileView.vue')
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'About',
-    //   component: () => import('../views/AboutView.vue')
-    // },
-    // {
-    //   path: '/:pathMatch(.*)*',
-    //   name: 'NotFound',
-    //   component: () => import('../views/NotFoundView.vue')
-    // }
+    {
+      path: '/carrito',
+      name: 'Carrito',
+      component: () => import('../views/ShoppingCartView.vue')
+    }
   ]
 })
 

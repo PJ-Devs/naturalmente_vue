@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router'
   <section class="h-screen flex items-center justify-center bg-[#EEE] bg-opacity-50">
     <section class="rounded-2xl shadow-lg p-[2rem] bg-white">
       <div class="flex justify-between items-center">
-        <h1 class="font-extrabold text-[--primary] text-[2rem]">Sign up</h1>
+        <h1 class="font-extrabold text-[--primary] text-[2rem]">Registrarse</h1>
         <img class="w-[4rem] h-[4rem]" src="../assets/icons/leaf.svg" alt="" />
       </div>
       <form class="flex flex-col mt-6" action="">
@@ -16,7 +16,7 @@ import { RouterLink } from 'vue-router'
             src="../assets/icons/user.svg"
             alt="Username icon"
           />
-          <input class="formInput bg-gray-50 w-[25dvw]" type="text" placeholder="First name" />
+          <input class="formInput bg-gray-50 w-[25dvw]" type="text" placeholder="Nombre" />
         </div>
         <div class="input-group">
           <img
@@ -24,7 +24,7 @@ import { RouterLink } from 'vue-router'
             src="../assets/icons/user.svg"
             alt="Username icon"
           />
-          <input class="formInput bg-gray-50 w-[25dvw]" type="text" placeholder="Last name" />
+          <input class="formInput bg-gray-50 w-[25dvw]" type="text" placeholder="Apellido" />
         </div>
         <div class="input-group">
           <img
@@ -32,7 +32,11 @@ import { RouterLink } from 'vue-router'
             src="../assets/icons/email.svg"
             alt="Email icon"
           />
-          <input class="formInput bg-gray-50 w-[25dvw]" type="email" placeholder="Email" />
+          <input
+            class="formInput bg-gray-50 w-[25dvw]"
+            type="email"
+            placeholder="Correo electronico"
+          />
         </div>
         <div class="input-group">
           <div class="flex justify-between">
@@ -42,17 +46,17 @@ import { RouterLink } from 'vue-router'
               alt="Password icon"
             />
           </div>
-          <input class="formInput bg-gray-50 w-[25dvw]" type="password" placeholder="Password" />
+          <input class="formInput bg-gray-50 w-[25dvw]" type="password" placeholder="Contraseña" />
         </div>
-        <button class="primaryBtn mt-4">Sign up</button>
+        <button class="primaryBtn mt-4">Registrarse</button>
       </form>
       <div class="flex gap-1 mt-3">
-        <span class="opacity-80">Do you aready have a user?</span>
+        <span class="opacity-80">Ya tienes una cuenta?</span>
         <RouterLink
           class="text-[--primary] opacity-80 hover:text-[--secondary] hover:underline"
           to="/login"
         >
-          Log In here.
+          Inicia sesión aquí
         </RouterLink>
       </div>
     </section>

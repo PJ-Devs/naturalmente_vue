@@ -3,12 +3,12 @@ import { RouterLink } from 'vue-router'
 
 const navRoutes = [
   {
-    name: 'Catalogue',
+    name: 'Catalogo',
     path: '/products'
   },
   {
-    name: 'My Cart',
-    path: '/shopping-cart'
+    name: 'Mi carrito',
+    path: '/carrito'
   }
 ]
 </script>
@@ -51,7 +51,7 @@ const navRoutes = [
             to="/login"
             class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
           >
-            Login
+            Incio de sesión
           </RouterLink>
         </li>
         <li class="separator flex">
