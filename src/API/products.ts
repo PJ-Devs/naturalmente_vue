@@ -8,7 +8,7 @@ export const getProducts = async (loading: Ref<boolean>, productList: Ref<Produc
     await fetch('http://localhost:8000/api/v1' + "/products")
       .then((res) => res.json())
       .then((data) => {
-        productList.value.push(...data);
+        productList.value.push(...data.data);
       })
       .finally(() => (loading.value = false));
   } catch (error) {

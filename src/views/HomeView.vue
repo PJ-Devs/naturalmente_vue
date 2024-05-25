@@ -8,6 +8,7 @@ getProducts(loading, products)
 </script>
 
 <template>
+  <LoadingSpinner />
   <section class="h-[100dvh] mx-[10dvw] mt-[2dvh] flex items-center relative">
     <div class="w-[50%]">
       <div class="font-extrabold text-[--text] text-[2rem] mb-4 flex gap-2">

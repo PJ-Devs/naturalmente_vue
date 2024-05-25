@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import type { Customer } from '@/types'
+import type { Customer } from '../types'
 
 export const useAuthUserStore = defineStore('authUser', {
   state: () => ({
     authUser: ref<Customer | null>(null)
   }),
   getters: {
-    isLoggedIn: (state) => computed(() => !!state.authUser),
+    isLoggedIn: (state) => computed(() => state.authUser != null),
     getUser: (state) => state.authUser,
   },
   actions: {
