@@ -1,5 +1,18 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { registerUser } from '../API/authUsers'
+
+const newUser = ref({
+  name: '',
+  lastName: '',
+  email: '',
+  password: ''
+})
+
+const handleRegister = () => {
+  registerUser(newUser.value)
+}
 </script>
 
 <template>
@@ -9,7 +22,7 @@ import { RouterLink } from 'vue-router'
         <h1 class="font-extrabold text-[--primary] text-[2rem]">Registrarse</h1>
         <img class="w-[4rem] h-[4rem]" src="../assets/icons/leaf.svg" alt="" />
       </div>
-      <form class="flex flex-col mt-6" action="">
+      <form class="flex flex-col mt-4" action="">
         <div class="input-group">
           <img
             class="w-[1.6rem] h-[1.6rem] absolute mt-2 ml-3 stroke-slate-100"

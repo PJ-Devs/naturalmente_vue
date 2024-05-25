@@ -3,7 +3,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 const API = axios.create({
-  baseURL: process.env.BASE_API_URL,
+  baseURL: 'http://localhost:8000/api/v1'
 });
 
 // API.interceptors.request.use((request) => {
