@@ -1,5 +1,6 @@
 import API from './config'
 import axios from 'axios';
+import type { Ref } from 'vue';
 import type { NewUser, AuthUser, Customer } from '../types'
 
 const formatNewUser = (newUser: NewUser) => {
@@ -10,9 +11,12 @@ const formatNewUser = (newUser: NewUser) => {
   }
 }
 
-export const registerUser = async (newUser: NewUser): Promise<Customer> => {
+export const registerUser = async (newUser: NewUser, loading: Ref<boolean>): Promise<Customer> => {
   try {
-    const response = await axios.post('/auth/register', formatNewUser(newUser));
+    loading.value = true;
+    const response = await API.post('/auth/register', formatNewUser(newUser)).finally(() => {
+      loading.value = false
+    });
     return response.data.data as Customer;
   } catch (error: any) {
     if (error.response) {
