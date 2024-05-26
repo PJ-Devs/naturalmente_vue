@@ -20,11 +20,26 @@ const router = createRouter({
       name: 'Register',
       component: () => import('../views/RegisterView.vue')
     },
-    // {
-    //   path: '/profile',
-    //   name: 'Profile',
-    //   component: () => import('../views/ProfileView.vue')
-    // },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('../views/ProfileView.vue'),
+      children: [
+        {
+          path: '',
+          redirect:'profile/account'
+        },
+        {
+          path: 'account',
+          component: import('../components/Profile/Personal-information.vue')
+        },
+        {
+          path: 'changePassword',
+          component: import('../components/Profile/SettingMyAccount.vue')
+        }
+        // Agrega aquí las rutas para los otros elementos de la lista
+      ]
+    }
     // {
     //   path: '/about',
     //   name: 'About',

@@ -43,4 +43,5 @@ import { RouterLink } from 'vue-router'
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
