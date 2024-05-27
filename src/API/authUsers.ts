@@ -1,7 +1,11 @@
 import API from './config'
-import { useAuthUserStore } from '../stores/authUser.ts'
 import type { Ref } from 'vue';
 import type { NewUser, AuthUser, Customer } from '../types'
+import { useAuthUserStore } from '@/stores/authUser';
+
+type TokenValidation = {
+  valid: boolean
+}
 
 const formatNewUser = (newUser: NewUser) => {
   return {
@@ -74,4 +78,48 @@ export const getUser = async (): Promise<Customer> => {
       throw new Error('Error de conexión al servidor');
     }
   }
+}
+
+export const validateToken = async (): Promise<TokenValidation> => {
+  try {
+    const response = await API.post('/auth/check-token-validity');
+    return response.data as TokenValidation;
+  } catch (error: any) {
+    if (error.response) {
+      const { status, data } = error.response;
+      throw new Error(`Error validando el token del usuario: ${status} - ${data.message}`);
+    } else {
+      throw new Error('Error de conexión al servidor');
+    }
+  }
+}
+
+/**
+ * Used to validate a token
+ */
+export const checkTokenValidity = () => {
+
+  async function checkToken() {
+    try {
+      const response = await validateToken();
+      return response;
+    } catch (error: any) {
+      if (error.response) {
+        const { status, data } = error.response;
+        throw new Error(`Error checkeando el token del usuario: ${status} - ${data.message}`);
+      } else {
+        throw new Error('Error de conexión al servidor');
+      }
+    }
+  }
+
+  checkToken().then((response) => {
+    const useAuthUser = useAuthUserStore();
+
+    if(!response.valid) {
+      localStorage.removeItem("authUser")
+    } else {
+      useAuthUser.setUser(JSON.parse(localStorage.getItem('authUser') || '{}'))
+    }
+  })
 }

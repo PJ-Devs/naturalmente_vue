@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import CartSummary from '../components/CartSummary.vue'
+import { onMounted, ref } from 'vue'
+import { getProductsFromCart } from '../API/shoppingCart'
+import type { Product } from '@/types'
+
+const cartProducts = ref<Product[]>([])
+const loading = ref<boolean>(true)
+
+onMounted(() => {})
 </script>
 
 <template>

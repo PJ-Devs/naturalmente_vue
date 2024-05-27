@@ -3,9 +3,11 @@ import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { loginUser, getUser } from '../API/authUsers'
-import { useAuthUserStore } from '../stores/authUser.ts'
+import { useAuthUserStore } from '../stores/authUser'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Customer } from '@/types'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/

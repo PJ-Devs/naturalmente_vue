@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { useAuthUserStore } from '../stores/authUser.ts'
+import { useAuthUserStore } from '../stores/authUser'
 
 const navRoutes = [
   {

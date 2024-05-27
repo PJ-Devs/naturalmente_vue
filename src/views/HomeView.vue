@@ -1,11 +1,4 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { getProducts } from '../API/products'
-
-const products = ref([])
-const loading = ref(false)
-getProducts(loading, products)
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <LoadingSpinner />

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthUserStore } from '../stores/authUser.ts'
+import { useAuthUserStore } from '../stores/authUser'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
@@ -7,8 +7,7 @@ import ProductsView from '../views/ProductsView.vue'
 
 export function requireUnAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
   const authUserStore = useAuthUserStore();
-  console.log(authUserStore.isLoggedIn.value);
-  if (authUserStore.isLoggedIn) {
+  if (authUserStore.isLoggedIn.value) {
     next({ name: 'Home' });
   } else {
     next();
@@ -17,7 +16,7 @@ export function requireUnAuth(to: RouteLocationNormalized, from: RouteLocationNo
 
 export function requireAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
   const authUserStore = useAuthUserStore();
-  if (!authUserStore.isLoggedIn) {
+  if (!authUserStore.isLoggedIn.value) {
     next({ name: 'Login' });
   } else {
     next();
