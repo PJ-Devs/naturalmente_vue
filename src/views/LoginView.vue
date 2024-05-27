@@ -111,4 +111,5 @@ const handleLogin = (e: Event) => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

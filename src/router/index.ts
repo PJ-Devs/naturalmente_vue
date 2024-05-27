@@ -53,7 +53,36 @@ const router = createRouter({
       path: '/productos',
       name: 'Productos',
       component: ProductsView
+    },
+    {
+      path: '/product/:id',
+      name: 'ProductDetails',
+      component: () => import('../components/UserViewProducts/ProductDetails.vue')
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('../views/ProfileView.vue'),
+      children: [
+        {
+          path: '',
+          redirect:'profile/account'
+        },
+        {
+          path: 'account',
+          component: import('../components/Profile/Personal-information.vue')
+        },
+        {
+          path: 'changePassword',
+          component: import('../components/Profile/SettingMyAccount.vue')
+        }
+      ]
     }
+    // {
+    //   path: '/:pathMatch(.*)*',
+    //   name: 'NotFound',
+    //   component: () => import('../views/NotFoundView.vue')
+    // }
   ]
 })
 
