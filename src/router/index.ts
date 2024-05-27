@@ -1,7 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthUserStore } from '../stores/authUser.ts'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import ProductsView from '../views/ProductsView.vue'
+
+export function requireUnAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+  const authUserStore = useAuthUserStore();
+  console.log(authUserStore.isLoggedIn.value);
+  if (authUserStore.isLoggedIn) {
+    next({ name: 'Home' });
+  } else {
+    next();
+  }
+}
+
+export function requireAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+  const authUserStore = useAuthUserStore();
+  if (!authUserStore.isLoggedIn) {
+    next({ name: 'Login' });
+  } else {
+    next();
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,16 +35,19 @@ const router = createRouter({
     {
       path: '/login',
       name: 'Login',
+      beforeEnter: requireUnAuth,
       component: () => import('../views/LoginView.vue')
     },
     {
       path: '/register',
       name: 'Register',
+      beforeEnter: requireUnAuth,
       component: () => import('../views/RegisterView.vue')
     },
     {
       path: '/carrito',
       name: 'Carrito',
+      beforeEnter: requireAuth,
       component: () => import('../views/ShoppingCartView.vue')
     },
     {

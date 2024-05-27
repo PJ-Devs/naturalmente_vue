@@ -5,7 +5,7 @@ import { registerUser } from '../API/authUsers'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { useRouter } from 'vue-router'
 
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const router = useRouter()
 
@@ -36,10 +36,9 @@ const handleCangeInput = (e: Event) => {
 const handleRegister = (e: Event) => {
   e.preventDefault()
   loading.value = true
-  console.log(1)
 
   // Check if the password or email are invalid
-  if (PASSWORD_REGEX.test(newUser.value.password) || EMAIL_REGEX.test(newUser.value.email)) {
+  if (!PASSWORD_REGEX.test(newUser.value.password) || !EMAIL_REGEX.test(newUser.value.email)) {
     loading.value = false
     return
   }

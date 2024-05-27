@@ -1,5 +1,5 @@
 import API from './config'
-import axios from 'axios';
+import { useAuthUserStore } from '../stores/authUser.ts'
 import type { Ref } from 'vue';
 import type { NewUser, AuthUser, Customer } from '../types'
 
@@ -28,11 +28,13 @@ export const registerUser = async (newUser: NewUser, loading: Ref<boolean>): Pro
   }
 };
 
-export const loginUser = async (authUser: AuthUser): Promise<void> => {
+export const loginUser = async (authUser: AuthUser, loading: Ref<boolean>): Promise<void> => {
   try {
-    await API.post('/auth/login', authUser).then((response) => {
-      return response.data.data as void;
-    })
+    loading.value = true;
+    const response = await API.post('/auth/login', authUser).finally(() => {
+      loading.value = false
+    });
+    return response.data.data as void;
   } catch (error: any) {
     if (error.response) {
       const { status, data } = error.response;

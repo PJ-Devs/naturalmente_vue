@@ -87,6 +87,3 @@ const useAuthUser = useAuthUserStore()
   height: 2rem;
 }
 </style>
-
-/cert/id_cer/instances/id_isntance/access { ip, date, id_instance } 1. Validar si la instancia
-existe ::find POST - access/ { ip, date, id_instance }
