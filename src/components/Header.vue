@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useAuthUserStore } from '../stores/authUser'
+
 const navRoutes = [
   {
-    name: 'Catalogue',
-    path: '/products'
+    name: 'Catalogo',
+    path: '/productos'
   },
   {
-    name: 'My Cart',
-    path: '/shopping-cart'
+    name: 'Mi carrito',
+    path: '/carrito'
   }
 ]
+
+const useAuthUser = useAuthUserStore()
 </script>
 
 <template>
@@ -45,15 +49,15 @@ const navRoutes = [
     </nav>
     <div>
       <ul class="flex justify-center items-center gap-[1rem]">
-        <li class="separator flex items-center">
+        <li v-if="!useAuthUser.isLoggedIn.value" class="separator flex items-center">
           <RouterLink
             to="/login"
             class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
           >
-            Login
+            Incio de sesión
           </RouterLink>
         </li>
-        <li class="separator flex">
+        <li v-if="useAuthUser.isLoggedIn.value" class="separator flex">
           <img class="w-[2rem] hover:cursor-pointer" src="../assets/icons/bag.svg" alt="Bag icon" />
           <div
             class="flex items-center justify-center bg-[--secondary] w-[1.6rem] h-[1.6rem] rounded-full relative"
@@ -61,7 +65,7 @@ const navRoutes = [
             <span class="text-[--text]">0</span>
           </div>
         </li>
-        <li class="separator">
+        <li v-if="useAuthUser.isLoggedIn.value" class="separator">
           <RouterLink to="/profile">
             <img
               class="w-[2rem] hover:cursor-pointer"

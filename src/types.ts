@@ -50,8 +50,6 @@ type NewUser = {
   lastName?: string;
   email: string;
   password: string;
-  phone_number: string,
-  address: string
 }
 
 type AuthUser = {
