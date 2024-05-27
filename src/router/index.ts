@@ -21,6 +21,16 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue')
     },
     {
+      path: '/products',
+      name: 'Products',
+      component: () => import('../views/ProductUserView.vue')
+    },
+    {
+      path: '/product/:id',
+      name: 'ProductDetails',
+      component: () => import('../components/UserViewProducts/ProductDetails.vue')
+    },
+    {
       path: '/profile',
       name: 'Profile',
       component: () => import('../views/ProfileView.vue'),
@@ -37,7 +47,6 @@ const router = createRouter({
           path: 'changePassword',
           component: import('../components/Profile/SettingMyAccount.vue')
         }
-        // Agrega aquí las rutas para los otros elementos de la lista
       ]
     }
     // {
