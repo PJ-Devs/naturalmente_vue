@@ -1,17 +1,28 @@
 <script setup lang="ts">
-import CartSummary from '../components/CartSummary.vue'
+import CartSummary from '../components/ShoppingCart/CartSummary.vue'
 import { onMounted, ref } from 'vue'
 import { getProductsFromCart } from '../API/shoppingCart'
-import type { Product } from '@/types'
+import { useAuthUserStore } from '@/stores/authUser'
+import type { CartProduct } from '@/types'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import ProductCard from '../components/ShoppingCart/ProductCard.vue'
+import { useRouter } from 'vue-router'
 
-const cartProducts = ref<Product[]>([])
+const authUser = useAuthUserStore()
+const cartProducts = ref<CartProduct[]>([])
 const loading = ref<boolean>(true)
+const router = useRouter()
 
-onMounted(() => {})
+onMounted(() => {
+  getProductsFromCart(authUser.authUser?.id as number, loading).then((products) => {
+    cartProducts.value = products
+  })
+})
 </script>
 
 <template>
   <section class="min-h-screen max-h-fit pt-[7dvh] bg-[#EEE] bg-opacity-50">
+    <LoadingSpinner v-if="loading" />
     <section className="min-h-[90dvh] mx-[10dvw] grid grid-cols-3 my-5">
       <section className="col-span-2 mx-[1%]">
         <h2
@@ -19,12 +30,18 @@ onMounted(() => {})
         >
           EN TÚ CARRITO 🛒
         </h2>
-
-        <div className="flex flex-col gap-2 my-2"></div>
-
+        <div v-if="cartProducts.length > 0" className="flex flex-col gap-2 my-2">
+          <ProductCard v-for="product in cartProducts" :key="product.id" :product="product" />
+        </div>
+        <section v-else className="py-[10%] bg-gray-100 shadow-md">
+          <span className="flex justify-center text-2xl font-light text-center text-gray-500">
+            Tu carrito aún está vacío! 😢
+          </span>
+        </section>
         <div className="flex flex-row justify-between my-4">
           <button
-            className="bg-white border-2 border-gray-300 text-md text-black rounded-md py-1 px-2"
+            className="bg-white border-4 border-gray-500 text-md text-black rounded-md py-1 px-2"
+            @click="router.push('/productos')"
           >
             Seguir comprando
           </button>

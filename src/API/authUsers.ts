@@ -118,6 +118,7 @@ export const checkTokenValidity = () => {
 
     if(!response.valid) {
       localStorage.removeItem("authUser")
+      localStorage.removeItem('cartProducts')
     } else {
       useAuthUser.setUser(JSON.parse(localStorage.getItem('authUser') || '{}'))
     }

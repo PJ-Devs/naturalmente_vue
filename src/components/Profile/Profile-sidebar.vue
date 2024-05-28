@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { VApp, VMain, VNavigationDrawer, VListItem, VDivider, VBtn } from 'vuetify/components'
+import { useAuthUserStore } from '@/stores/authUser'
+
+const useAuthUser = useAuthUserStore()
+console.log(useAuthUser.authUser)
+
 let selectedItem = ref('')
 let drawer = ref(false)
 </script>
@@ -17,8 +22,11 @@ let drawer = ref(false)
         <router-view />
       </v-main>
       <!--v-model="drawer" app mini-variant-->
-      <v-navigation-drawer :width="300" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
-        <v-list-item title="Mi perfil" subtitle="Menu de navegacion"></v-list-item>
+      <v-navigation-drawer :width="400" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
+        <v-list-item
+          :title="`Bienvenido devuelta, ${useAuthUser.authUser?.name}`"
+          subtitle="Menu de navegacion"
+        ></v-list-item>
         <v-divider></v-divider>
         <v-list density="compact" nav>
           <router-link to="/profile/account">

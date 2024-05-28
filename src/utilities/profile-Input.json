@@ -7,23 +7,7 @@
     {
         "label":"Primer apellido",
         "type":"text",
-        "placeholder":"ingresa tu primer apellido"
-    },
-    {
-        "label":"Segundo apellido",
-        "type":"text",
-        "placeholder":"ingresa tu segundo apellido"
-    },
-    {
-        "label":"tipo de documento",
-        "type":"text",
-        "placeholder":"ingresa tu tipo de documento"
-    },
-
-    {
-        "label":"numero de documento",
-        "type":"text",
-        "placeholder":"ingresa tu numero de documento"
+        "placeholder":"ingresa tus apellidos"
     },
     {
         "label":"celular",
@@ -35,5 +19,4 @@
         "type": "email",
         "placeholder": "ingresa tu email"
     }
-
 ]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Product } from '../types'
-import { showCurrency } from '../helpers'
+import type { Product } from '@/types'
+import { showCurrency } from '@/helpers'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({
@@ -21,7 +21,7 @@ const router = useRouter()
 //router.push(`/product/${props.product.name.replace(/\s/g, '-')}`)
 
 const handleClickCard = () => {
-  router.push(`/productos/${props.product.id}`)
+  props.isInCart ? router.push('/carrito') : router.push(`/productos/${props.product.id}`)
 }
 </script>
 
@@ -39,17 +39,16 @@ const handleClickCard = () => {
         <h2 className="text-xl font-semibold">
           {{ props.product.name }}
         </h2>
-        <section className="py-1.5 px-3 bg-[--primary] rounded-xl">
+        <section v-if="isInCart" className="py-1.5 px-3 bg-[--primary] rounded-xl">
           <span className="px-2 text-white "> Guardado! </span>
         </section>
       </div>
-
       <div className="flex flex-col">
         <span className="text-md font-light">
           {{ product.description }}
         </span>
         <span className="text-lg font-medium">
-          {{ showCurrency(props.product.price) }}
+          {{ showCurrency(props.product.price) + ' COP' }}
         </span>
       </div>
     </section>
