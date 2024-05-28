@@ -4,15 +4,18 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { loginUser, getUser } from '../API/authUsers'
 import { useAuthUserStore } from '../stores/authUser'
+import { getProductsFromCart } from '../API/shoppingCart'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Customer } from '@/types'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { useShoppingCartStore } from '@/stores/shoppingCart'
 
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const router = useRouter()
 const useAuthUser = useAuthUserStore()
+const shoppingCart = useShoppingCartStore()
 
 const user = ref({
   email: '',
@@ -49,6 +52,12 @@ const handleLogin = (e: Event) => {
       user.then((data) => {
         useAuthUser.setUser(data as Customer)
       })
+      getProductsFromCart(useAuthUser.getUser?.id as number, loading).then((data) => {
+        shoppingCart.setCartProducts(data)
+      })
+    })
+    .then(() => {
+      toast.success('Inicio de sesión exitoso')
       router.push('/')
     })
     .catch((error) => {
@@ -111,5 +120,4 @@ const handleLogin = (e: Event) => {
   </section>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

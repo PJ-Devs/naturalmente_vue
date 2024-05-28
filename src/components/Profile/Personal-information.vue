@@ -13,8 +13,8 @@ const submitForm = () => {
     <section class="h-screen flex my-14 justify-center flex-grow">
       <form @submit.prevent="submitForm" class="flex flex-col">
         <h1 class="font-bold text-[--primary] m-2 text-xl">Datos Personales</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
-          <template v-for="(input, index) in inputs" :key="index">
+        <div class="flex-col sm:grid-cols-2 gap-4 mx-[10dvw]">
+          <template v-for="(input, idx) in inputs" v-bind:key="idx">
             <GenericInput
               :type="input.type"
               :placeholder="input.placeholder"

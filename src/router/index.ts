@@ -98,7 +98,7 @@ const router = createRouter({
     {
       path: '/productos/:id',
       name: 'ProductDetails',
-      component: () => import('../components/UserViewProducts/ProductDetails.vue')
+      component: () => import('../components/Products/ProductDetails.vue')
     },
     {
       path: '/profile',
