@@ -2,6 +2,7 @@
 import type { PropType } from 'vue'
 import type { Product } from '../types'
 import { showCurrency } from '../helpers'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   product: {
@@ -14,11 +15,20 @@ const props = defineProps({
     default: false
   }
 })
+
+const router = useRouter()
+
+//router.push(`/product/${props.product.name.replace(/\s/g, '-')}`)
+
+const handleClickCard = () => {
+  router.push(`/productos/${props.product.id}`)
+}
 </script>
 
 <template>
   <section
     className="grid grid-cols-4 rounded-lg shadow-md bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
+    @click="handleClickCard"
   >
     <section className="flex col-span-1 justify-center items-center">
       <img src="" alt="Imagen de producto" />

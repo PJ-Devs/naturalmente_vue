@@ -55,13 +55,14 @@ const router = createRouter({
       component: ProductsView
     },
     {
-      path: '/product/:id',
+      path: '/productos/:id',
       name: 'ProductDetails',
       component: () => import('../components/UserViewProducts/ProductDetails.vue')
     },
     {
       path: '/profile',
       name: 'Profile',
+      beforeEnter: requireAuth,
       component: () => import('../views/ProfileView.vue'),
       children: [
         {
