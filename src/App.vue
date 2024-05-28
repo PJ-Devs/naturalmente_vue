@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
+import Header from './components/Header.vue'
+import { onMounted } from 'vue'
+import { checkTokenValidity } from './API/authUsers'
+
+onMounted(() => {
+  checkTokenValidity()
+})
 </script>
 
 <template>
