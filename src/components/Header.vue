@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useAuthUserStore } from '../stores/authUser'
+import { useShoppingCartStore } from '../stores/shoppingCart'
 
 const navRoutes = [
   {
@@ -14,6 +15,7 @@ const navRoutes = [
 ]
 
 const useAuthUser = useAuthUserStore()
+const useShoppingCart = useShoppingCartStore()
 </script>
 
 <template>
@@ -62,7 +64,9 @@ const useAuthUser = useAuthUserStore()
           <div
             class="flex items-center justify-center bg-[--secondary] w-[1.6rem] h-[1.6rem] rounded-full relative"
           >
-            <span class="text-[--text]">0</span>
+            <span class="text-[--text]">
+              {{ useShoppingCart.cartProducts.length }}
+            </span>
           </div>
         </li>
         <li v-if="useAuthUser.isLoggedIn.value" class="separator">

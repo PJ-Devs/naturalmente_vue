@@ -1,3 +1,5 @@
+import type { CartProduct } from "./types";
+
 /**
  * Used to set COP currency to a number
  * @param amount
@@ -30,4 +32,37 @@ export function formatDateString(inputDate: string): string {
   };
 
   return dateObject.toLocaleString('es-ES', options);
+}
+
+/**
+ * 
+ * @param products 
+ * @returns 
+ */
+export const sumAmountOfProducts = (products: CartProduct[]): number => {
+  if(!products) return 0;
+  return products.reduce((num,product) => {
+    return num + product.pivot.orderedQuantity;
+  }, 0);
+}
+
+/**
+ * 
+ * @param products 
+ * @returns 
+ */
+export const sumTotalPrice = (products: CartProduct[]): number => {
+  if(!products) return 0;
+  return products.reduce((num,product) => {
+    return num + product.price * product.pivot.orderedQuantity;
+  }, 0);
+}
+
+/**
+ * 
+ * @param price 
+ * @returns 
+ */
+export const getFinalPrice = (price: number): number => {
+  return price * 1.26;
 }

@@ -2,6 +2,7 @@ import API from './config'
 import type { Ref } from 'vue';
 import type { NewUser, AuthUser, Customer } from '../types'
 import { useAuthUserStore } from '@/stores/authUser';
+import { useShoppingCartStore } from '@/stores/shoppingCart';
 
 type TokenValidation = {
   valid: boolean
@@ -115,11 +116,15 @@ export const checkTokenValidity = () => {
 
   checkToken().then((response) => {
     const useAuthUser = useAuthUserStore();
+    const useShoppingCart = useShoppingCartStore()
 
     if(!response.valid) {
       localStorage.removeItem("authUser")
+      localStorage.removeItem('cartProducts')
     } else {
       useAuthUser.setUser(JSON.parse(localStorage.getItem('authUser') || '{}'))
+      useShoppingCart.setCartProducts(JSON.parse(localStorage.getItem('cartProducts') || '[]'))
+      console.log(useShoppingCart.cartProducts)
     }
   })
 }

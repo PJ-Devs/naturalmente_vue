@@ -5,9 +5,10 @@ interface FetchOptions extends RequestInit {
 }
 
 const fetchGlobal = async <T>(endpoint: string, options: FetchOptions = {}): Promise<T> => {
-  console.log(`${API_URL}${endpoint}`)
   const response = await fetch(`${API_URL}${endpoint}`, options);
+
   const contentType = response.headers.get('content-type');
+  
   if (!contentType || !contentType.includes('application/json')) {
     const text = await response.text();
     throw new Error(`Expected JSON, got ${contentType}: ${text}`);

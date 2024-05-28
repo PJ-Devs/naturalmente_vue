@@ -1,22 +1,29 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { OhVueIcon, addIcons } from 'oh-vue-icons';
+import { FaFlag, RiZhihuFill } from 'oh-vue-icons/icons';
 
 // Vuetify
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css';
+import 'vuetify/styles';
+import { createVuetify } from 'vuetify';
 
-import './index.css'
-import App from './App.vue'
-import router from './router'
+import './index.css';
 
-const app = createApp(App)
+import App from './App.vue';
+import router from './router';
 
-// Vuetify
-const vuetify = createVuetify()
+const app = createApp(App);
 
-app.use(createPinia())
-app.use(router)
-app.use(vuetify)
+// Configuración de Vuetify
+const vuetify = createVuetify();
 
-app.mount('#app')
+// Configuración de Oh-Vue-Icons
+addIcons(FaFlag, RiZhihuFill);
+app.component('v-icon', OhVueIcon);
+
+app.use(createPinia());
+app.use(router);
+app.use(vuetify);
+
+app.mount('#app');
