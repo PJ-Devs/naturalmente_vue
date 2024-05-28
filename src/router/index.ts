@@ -1,31 +1,72 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import AdminCrudProductsView from '@/views/AdminCrudProductsView.vue'
+import AdminProductsView from '@/views/AdminProductsView.vue'
+import AdminClientsView from '@/views/AdminClientsView.vue'
+import AdminOrdersView from '@/views/AdminOrdersView.vue'
+import AdminLayout from '@/layouts/AdminLayout.vue'
 import { useAuthUserStore } from '../stores/authUser'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import ProductsView from '../views/ProductsView.vue'
 
-export function requireUnAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
-  const authUserStore = useAuthUserStore();
+export function requireUnAuth(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+): void {
+  const authUserStore = useAuthUserStore()
   if (authUserStore.isLoggedIn.value) {
-    next({ name: 'Home' });
+    next({ name: 'Home' })
   } else {
-    next();
+    next()
   }
 }
 
-export function requireAuth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
-  const authUserStore = useAuthUserStore();
+export function requireAuth(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+): void {
+  const authUserStore = useAuthUserStore()
   if (!authUserStore.isLoggedIn.value) {
-    next({ name: 'Login' });
+    next({ name: 'Login' })
   } else {
-    next();
+    next()
   }
 }
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminLayout,
+      redirect: { name: 'admin-products' },
+      children: [
+        {
+          path: '/admin/products',
+          name: 'admin-products',
+          component: AdminCrudProductsView
+        },
+        {
+          path: '/admin/products/all',
+          name: 'admin-products-all',
+          component: AdminProductsView
+        },
+        {
+          path: '/admin/clients',
+          name: 'admin-clients',
+          component: AdminClientsView
+        },
+        {
+          path: '/admin/orders',
+          name: 'admin-orders',
+          component: AdminOrdersView
+        }
+      ]
+    },
     {
       path: '/',
       name: 'Home',
@@ -67,7 +108,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect:'profile/account'
+          redirect: 'profile/account'
         },
         {
           path: 'account',
@@ -79,11 +120,6 @@ const router = createRouter({
         }
       ]
     }
-    // {
-    //   path: '/:pathMatch(.*)*',
-    //   name: 'NotFound',
-    //   component: () => import('../views/NotFoundView.vue')
-    // }
   ]
 })
 
