@@ -1,7 +1,6 @@
 <script setup>
 import DeleteModal from '@/components/DeleteModal.vue'
 import EditModal from '@/components/EditModal.vue'
-import { ref } from 'vue'
 
 const props = defineProps({
   id: Number,
@@ -9,37 +8,10 @@ const props = defineProps({
   price: Number,
   quantity: Number
 })
-
-const emit = defineEmits(['emitDeleteProduct', 'emitEditedProduct'])
-const deleteModalStatus = ref(false)
-const editModalStatus = ref(false)
-
-const manageDeleteModal = () => {
-  deleteModalStatus.value = !deleteModalStatus.value
-}
-
-const manageEditModal = () => {
-  editModalStatus.value = !editModalStatus.value
-}
 </script>
 
 <template>
-  <DeleteModal
-    :show="deleteModalStatus"
-    @emitDeleteProduct="emit('emitDeleteProduct', props.id)"
-    @emitCloseModal="manageDeleteModal"
-  />
-  <EditModal
-    :show="editModalStatus"
-    :id="props.id"
-    @emitCloseModal="manageEditModal"
-    @emitEditedProduct="emit('emitEditedProduct')"
-  />
   <div class="product-container">
-    <div class="icon-container">
-      <img class="edit-icon" src="../assets/icons/edit.svg" alt="edit" @click="manageEditModal" />
-      <img class="icon" src="../assets/icons/delete.svg" alt="delete" @click="manageDeleteModal" />
-    </div>
     <div class="img-container">
       <img
         src="//artemisa.co/cdn/shop/products/vitamina-c-1000-mg-with-rose-hips-x-60-softgels-414669_large.jpg?v=1660859155"
