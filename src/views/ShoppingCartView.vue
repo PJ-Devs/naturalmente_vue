@@ -7,15 +7,16 @@ import type { CartProduct } from '@/types'
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import ProductCard from '../components/ShoppingCart/ProductCard.vue'
 import { useRouter } from 'vue-router'
+import { useShoppingCartStore } from '@/stores/shoppingCart'
 
 const authUser = useAuthUserStore()
-const cartProducts = ref<CartProduct[]>([])
+const useShoppingCart = useShoppingCartStore()
 const loading = ref<boolean>(true)
 const router = useRouter()
 
 onMounted(() => {
-  getProductsFromCart(authUser.authUser?.id as number, loading).then((products) => {
-    cartProducts.value = products
+  getProductsFromCart(authUser.authUser?.id as number, loading).then((data: CartProduct[]) => {
+    useShoppingCart.setCartProducts(data)
   })
 })
 </script>
@@ -30,8 +31,12 @@ onMounted(() => {
         >
           EN TÚ CARRITO 🛒
         </h2>
-        <div v-if="cartProducts.length > 0" className="flex flex-col gap-2 my-2">
-          <ProductCard v-for="product in cartProducts" :key="product.id" :product="product" />
+        <div v-if="useShoppingCart.cartProducts.length > 0" className="flex flex-col gap-2 my-2">
+          <ProductCard
+            v-for="product in useShoppingCart.cartProducts"
+            :key="product.id"
+            :product="product"
+          />
         </div>
         <section v-else className="py-[10%] bg-gray-100 shadow-md">
           <span className="flex justify-center text-2xl font-light text-center text-gray-500">

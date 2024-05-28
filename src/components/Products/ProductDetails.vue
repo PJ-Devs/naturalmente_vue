@@ -8,12 +8,14 @@ import IncrementalButton from './IncrementalButton.vue'
 import fetchGlobal from '../../helpers/gloabalFetch'
 import LoadingSpinner from '../LoadingSpinner.vue'
 import { useAuthUserStore } from '@/stores/authUser'
+import { useShoppingCartStore } from '@/stores/shoppingCart'
 
 const router = useRouter()
 const route = useRoute()
 const product = ref<Product | null>(null)
 const quantity = ref(1)
 const useAuthUser = useAuthUserStore()
+const useShoppingCart = useShoppingCartStore()
 
 const fetchProduct = async () => {
   try {
@@ -38,8 +40,15 @@ const handleAddToCart = () => {
             {
               orderedQuantity: quantity.value
             }
-          )
-        : await attachProductToCart(useAuthUser.getUser?.id as number, product.value?.id as number)
+          ).then((data) => {
+            useShoppingCart.setCartProducts(data)
+          })
+        : await attachProductToCart(
+            useAuthUser.getUser?.id as number,
+            product.value?.id as number
+          ).then((data) => {
+            useShoppingCart.setCartProducts(data)
+          })
     } catch (error) {
       throw new Error('Error al agregar al carrito' + error)
     }

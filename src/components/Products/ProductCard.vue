@@ -40,7 +40,7 @@ const handleClickCard = () => {
           {{ props.product.name }}
         </h2>
         <section v-if="isInCart" className="py-1.5 px-3 bg-[--primary] rounded-xl">
-          <span className="px-2 text-white "> Guardado! </span>
+          <span className="px-2 text-white "> En tu carrito! </span>
         </section>
       </div>
       <div className="flex flex-col">

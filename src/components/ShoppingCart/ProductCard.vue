@@ -5,6 +5,7 @@ import type { PropType } from 'vue'
 import { showCurrency } from '../../helpers'
 import { ref } from 'vue'
 import ModalDettachProduct from '../ShoppingCart/ModalDettachProduct.vue'
+import IncrementalButton from './Incrementalbutton.vue'
 
 const props = defineProps({
   product: {
@@ -15,16 +16,20 @@ const props = defineProps({
 
 const quantity = ref<number>(props.product.pivot.orderedQuantity)
 const router = useRouter()
+
+const onUpdateQuantity = (q: number) => {
+  quantity.value = q
+}
 </script>
 
 <template>
-  <section className="grid grid-cols-4 py-3 px-2 bg-gray-50">
+  <section className="grid grid-cols-4 py-3 px-2 bg-gray-50 shadow-sm">
     <!-- {/* Imagen */} -->
     <div className=""></div>
 
     <div className="flex flex-col">
       <span
-        className="text-left w-fit text-lg hover:text-color4 hover:cursor-pointer transition-all py-1"
+        className="text-left w-fit text-lg hover:text-[--primary] hover:cursor-pointer transition-all py-1"
         @click="router.push(`/productos/${props.product.id}`)"
       >
         {{ props.product.name }}
@@ -36,10 +41,10 @@ const router = useRouter()
 
     <div className="flex flex-row justify-between col-span-2 px-3">
       <div className="flex flex-row items-center justify-center gap-5">
-        <CartIncrementalbutton
-          onUpdateQuantity="{onUpdateQuantity}"
-          initialQuantity="{quantity}"
-          product="{props.product}"
+        <IncrementalButton
+          :product="product"
+          :initialQuantity="product.pivot.orderedQuantity"
+          :onUpdateQuantity="onUpdateQuantity"
         />
         <span className="text-lg text-center font-semibold text-orange-500">
           {{ showCurrency(props.product.price * quantity) + ' COP' }}
