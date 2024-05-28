@@ -5,7 +5,9 @@ import ProductCard from '../components/ProductCard.vue'
 import ProductSidebar from '../components/UserViewProducts/Product-sidebar.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Product } from '@/types'
+import { useFiltersStore } from '../stores/filtersStore';
 
+const filtersStore = useFiltersStore();
 const products = ref<Product[]>([])
 const loading = ref<boolean>(true)
 
@@ -15,7 +17,10 @@ const onChangeProducts = (toSetProducts: Product[]) => {
 
 onMounted(() => {
   getProducts(loading, products)
+  "filteresssss1s",filtersStore.fetchProducts();
+ 
 })
+
 </script>
 
 <template>
@@ -24,7 +29,7 @@ onMounted(() => {
     <section v-if="loading === false" className="grid grid-cols-4 my-5">
       <ProductSidebar />
       <ul className="col-span-3 flex flex-col divide-y-2 gap-3 divide-solid ml-[1%]">
-        <li v-for="(product, index) in products" v-bind:key="index">
+        <li v-for="(product, index) in filtersStore.filteredProducts" v-bind:key="index">
           <ProductCard :product="product" :isInCart="true" />
         </li>
       </ul>

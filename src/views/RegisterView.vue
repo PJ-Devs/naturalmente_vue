@@ -17,6 +17,8 @@ const newUser = ref({
 })
 const loading = ref(false)
 
+const showPassword = ref(false)
+
 /**
  * Handle the change of the input values
  * @param e Event
@@ -113,13 +115,22 @@ const handleRegister = (e: Event) => {
               alt="Password icon"
             />
           </div>
-          <input
-            class="formInput bg-gray-50 w-[25dvw]"
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            @change="handleCangeInput"
-          />
+        <input
+          class="formInput bg-gray-50 w-[25dvw]"
+          :type="showPassword ? 'text' : 'password'"
+          placeholder="Contraseña"
+          name="password"
+          @change="handleCangeInput"
+          
+        />
+        <span
+        class="cursor-pointer m-0"
+        @click="showPassword = !showPassword"
+        style="font-size: 1.5rem; line-height: 1; color: #4B5563;"
+      >
+        {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+      </span>
+
         </div>
         <button class="primaryBtn mt-4" @click="handleRegister">Registrarse</button>
       </form>

@@ -4,6 +4,8 @@ import type { Product } from '../types'
 import { showCurrency } from '../helpers'
 import { useRouter } from 'vue-router'
 
+
+
 const props = defineProps({
   product: {
     type: Object as PropType<Product>,
@@ -15,7 +17,6 @@ const props = defineProps({
     default: false
   }
 })
-
 const router = useRouter()
 
 //router.push(`/product/${props.product.name.replace(/\s/g, '-')}`)
