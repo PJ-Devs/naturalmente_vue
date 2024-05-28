@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { getProducts } from '../API/products'
 import ProductCard from '../components/ProductCard.vue'
-import Filters from '../components/Filters.vue'
+import ProductSidebar from '../components/UserViewProducts/Product-sidebar.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Product } from '@/types'
 
@@ -22,7 +22,7 @@ onMounted(() => {
   <section className="min-h-screen max-h-fit pt-[7dvh] mx-[10dvw]">
     <LoadingSpinner v-if="loading" />
     <section v-if="loading === false" className="grid grid-cols-4 my-5">
-      <Filters :products="products" :onFilterProducts="onChangeProducts" />
+      <ProductSidebar />
       <ul className="col-span-3 flex flex-col divide-y-2 gap-3 divide-solid ml-[1%]">
         <li v-for="(product, index) in products" v-bind:key="index">
           <ProductCard :product="product" :isInCart="true" />
