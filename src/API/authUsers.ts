@@ -36,7 +36,7 @@ export const registerUser = async (newUser: NewUser, loading: Ref<boolean>): Pro
 export const loginUser = async (authUser: AuthUser, loading: Ref<boolean>): Promise<void> => {
   try {
     loading.value = true
-    const response = await API.post('/login', authUser).finally(() => {
+    const response = await API.post('/auth/login', authUser).finally(() => {
       loading.value = false
     })
     return response.data.data as void

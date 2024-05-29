@@ -81,7 +81,7 @@ onMounted(() => {
           class="btn-p"
           @click="
             () => {
-              router.push('/productos')
+              router.push('/admin/products/all')
             }
           "
         >
