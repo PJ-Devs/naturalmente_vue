@@ -1,0 +1,46 @@
+[
+    {
+        "label": "Nombre",
+        "type": "text",
+        "placeholder": "ingresa tu nombre",
+        "name":"name"
+    },
+    {
+        "label":"Primer apellido",
+        "type":"text",
+        "placeholder":"ingresa tu primer apellido",
+        "name":""
+    },
+    {
+        "label":"Segundo apellido",
+        "type":"text",
+        "placeholder":"ingresa tu segundo apellido",
+        "name":""
+    },
+    {
+        "label":"tipo de documento",
+        "type":"text",
+        "placeholder":"ingresa tu tipo de documento",
+        "name":""
+    },
+
+    {
+        "label":"numero de documento",
+        "type":"text",
+        "placeholder":"ingresa tu numero de documento",
+        "name":""
+    },
+    {
+        "label":"celular",
+        "type":"text",
+        "placeholder":"ingresa tu numero de celular",
+        "name":"phone_number"
+    },
+    {
+        "label": "Correo Electrónico",
+        "type": "email",
+        "placeholder": "ingresa tu email",
+        "name":"email"
+    }
+
+]

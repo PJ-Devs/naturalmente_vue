@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VApp, VMain, VNavigationDrawer, VListItem, VDivider, VBtn } from 'vuetify/components'
+import {
+  VApp,
+  VMain,
+  VNavigationDrawer,
+  VListItem,
+  VDivider,
+  VBtn,
+  VList
+} from 'vuetify/components'
 import { useAuthUserStore } from '@/stores/authUser'
 import { logoutUser } from '@/API/authUsers'
 import { useRouter } from 'vue-router'
@@ -54,34 +62,16 @@ const logOut = () => {
               </template>
             </v-list-item>
           </router-link>
-          <router-link to="/profile/changePassword">
-            <v-list-item
-              link
-              prepend-icon="mdi-lock"
-              title="Configurar mi cuenta"
-              value="changePassword"
-              @click="selectedItem = 'changePassword'"
-            >
-              <template v-slot:append>
-                <v-btn
-                  :icon="
-                    selectedItem === 'changePassword' ? 'mdi-chevron-right' : 'mdi-chevron-left'
-                  "
-                  variant="text"
-                ></v-btn>
-              </template>
-            </v-list-item>
-          </router-link>
           <v-list-item
             link
-            prepend-icon="mdi-map-marker"
-            title="Direcciones"
-            value="addresses"
-            @click="selectedItem = 'addresses'"
+            prepend-icon="mdi-basket"
+            title="Mis compras"
+            value="shopping"
+            @click="selectedItem = 'shopping'"
           >
             <template v-slot:append>
               <v-btn
-                :icon="selectedItem === 'addresses' ? 'mdi-chevron-right' : 'mdi-chevron-left'"
+                :icon="selectedItem === 'shopping' ? 'mdi-chevron-right' : 'mdi-chevron-left'"
                 variant="text"
               ></v-btn>
             </template>

@@ -2,21 +2,25 @@
     {
         "label": "Nombre",
         "type": "text",
-        "placeholder": "ingresa tu nombre"
+        "placeholder": "ingresa tu nombre",
+        "name":"name"
     },
     {
-        "label":"Primer apellido",
-        "type":"text",
-        "placeholder":"ingresa tus apellidos"
-    },
-    {
-        "label":"celular",
-        "type":"text",
-        "placeholder":"ingresa tu numero de celular"
+        "label":"Celular",
+        "type":"number",
+        "placeholder":"ingresa tu numero de celular",
+        "name":"phone_number"
     },
     {
         "label": "Correo Electrónico",
         "type": "email",
-        "placeholder": "ingresa tu email"
+        "placeholder": "ingresa tu email",
+        "name":"email"
+    },
+    {
+        "label": "Dirección",
+        "type": "text",
+        "placeholder": "ingresa tu direccion",
+        "name":"address"
     }
 ]

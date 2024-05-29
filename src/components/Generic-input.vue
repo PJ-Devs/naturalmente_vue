@@ -40,6 +40,7 @@ const props = defineProps({
       :value="props.value"
       :disabled="props.disabled"
       :required="props.required"
+      @input="$emit('update:modelValue', $event.target.value)"
       class="border-b border-gray-300 focus:border-blue-500 hover:border-b-2 hover:border-red-500 outline-none w-full px-3 py-2 text-gray-700 leading-tight transition-all duration-300"
     />
   </div>

@@ -5,15 +5,13 @@ import ProductCard from '../components/Products/ProductCard.vue'
 import ProductSidebar from '../components/Products/Product-sidebar.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Product } from '@/types'
+import { useFiltersStore } from '../stores/filtersStore'
 import { useShoppingCartStore } from '@/stores/shoppingCart'
 
+const filtersStore = useFiltersStore()
 const products = ref<Product[]>([])
 const loading = ref<boolean>(true)
 const useCartProducts = useShoppingCartStore()
-
-const onChangeProducts = (toSetProducts: Product[]) => {
-  products.value = toSetProducts
-}
 
 /**
  * Validates if a certain product is in the cart
@@ -29,6 +27,7 @@ const isInCart = (product: Product) => {
 
 onMounted(() => {
   getProducts(loading, products)
+  filtersStore.fetchProducts()
 })
 </script>
 
@@ -38,7 +37,7 @@ onMounted(() => {
     <section v-if="loading === false" className="grid grid-cols-4 my-5">
       <ProductSidebar />
       <ul className="col-span-3 flex flex-col divide-y-2 gap-3 divide-solid ml-[1%]">
-        <li v-for="(product, index) in products" v-bind:key="index">
+        <li v-for="(product, index) in filtersStore.filteredProducts" v-bind:key="index">
           <ProductCard :product="product" :isInCart="isInCart(product)" />
         </li>
       </ul>
