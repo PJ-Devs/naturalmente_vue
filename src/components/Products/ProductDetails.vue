@@ -9,6 +9,8 @@ import fetchGlobal from '../../helpers/gloabalFetch'
 import LoadingSpinner from '../LoadingSpinner.vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useShoppingCartStore } from '@/stores/shoppingCart'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 const router = useRouter()
 const route = useRoute()
@@ -48,6 +50,7 @@ const handleAddToCart = () => {
             product.value?.id as number
           ).then((data) => {
             useShoppingCart.setCartProducts(data)
+            toast.success('Inicio de sesión exitoso')
           })
     } catch (error) {
       throw new Error('Error al agregar al carrito' + error)

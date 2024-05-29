@@ -3,8 +3,8 @@ import axios from 'axios'
 axios.defaults.withCredentials = true
 
 const API = axios.create({
-  baseURL: 'http://192.168.0.34:8000/api/v1'
-})
+  baseURL: 'http://localhost:8000/api/v1'
+});
 
 // API.interceptors.request.use((request) => {
 //   console.log(request)

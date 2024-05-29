@@ -66,3 +66,10 @@ export const sumTotalPrice = (products: CartProduct[]): number => {
 export const getFinalPrice = (price: number): number => {
   return price * 1.26;
 }
+
+export const countTotalProducts = (products: CartProduct[]): number => {
+  if(!products) return 0;
+  return products.reduce((num,product) => {
+    return num + product.pivot.orderedQuantity;
+  }, 0);
+}

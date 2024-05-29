@@ -95,6 +95,21 @@ export const validateToken = async (): Promise<TokenValidation> => {
   }
 }
 
+export async function isAdmin(): Promise <boolean> {
+  try {
+    const response = await API.get('/isAdmin');
+    console.log(response.data);
+    return response.data["message"];
+  } catch (error: any) {
+    if (error.response) {
+      const { status, data } = error.response;
+      throw new Error(`Error validando el rol del usuario: ${status} - ${data.message}`);
+    } else {
+      throw new Error('Error de conexión al servidor');
+    }
+  }
+}
+
 /**
  * Used to validate a token
  */
