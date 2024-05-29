@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { type PropType, ref } from 'vue'
 import type { CartProduct } from '../../types'
-import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { BiTrashFill } from 'oh-vue-icons/icons'
 import { detachProductFromCart } from '../../API/shoppingCart'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useShoppingCartStore } from '@/stores/shoppingCart'
 import LoadingSpinner from '../LoadingSpinner.vue'
-
-addIcons(BiTrashFill)
 
 const props = defineProps({
   product: {
@@ -22,6 +18,14 @@ const useShoppingCart = useShoppingCartStore()
 const loading = ref<boolean>(false)
 const open = ref<boolean>(false)
 
+const openModal = () => {
+  open.value = true
+}
+
+const closeModal = () => {
+  open.value = false
+}
+
 const handleDeleteProduct = () => {
   loading.value = true
   detachProductFromCart(useAuthUser.authUser?.id as number, props.product.id as number).then(
@@ -32,17 +36,12 @@ const handleDeleteProduct = () => {
     }
   )
 }
-
-const closeModal = () => {
-  open.value = false
-}
 </script>
 
 <template>
   <section>
-    <button class="hover:text-red-600 transition-colors duration-300" @click="open = true">
-      <OhVueIcon name="bi-trash-fill" scale="1.6" />
-    </button>
+    <LoadingSpinner v-if="loading" />
+    <slot name="button" :openModal="openModal"></slot>
     <div
       class="fixed top-0 left-0 w-screen h-screen bg-gray-800 bg-opacity-20 flex justify-center items-center z-20"
       v-if="open"
