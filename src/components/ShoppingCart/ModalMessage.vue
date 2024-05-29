@@ -9,6 +9,10 @@ const props = defineProps({
   open: {
     type: Boolean,
     required: true
+  },
+  message: {
+    type: String,
+    required: true
   }
 })
 const emit = defineEmits(['close'])
@@ -41,7 +45,7 @@ const closeModal = () => {
         <div
           class="flex flex-col justify-center items-center gap-[0.8rem] border-l-[3px] border-black px-5"
         >
-          <span>Felicidades! Tu compra se ha realizado con éxito. </span>
+          <span>{{ props.message }}</span>
           <button
             class="w-[35%] px-4 py-2 bg-[--primary] text-lg hover:bg-[--secondary] rounded-full hover:shadow-md text-gray-50"
             @click="closeModal"

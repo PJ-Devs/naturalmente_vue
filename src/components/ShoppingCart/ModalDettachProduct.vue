@@ -10,8 +10,15 @@ const props = defineProps({
   product: {
     type: Object as PropType<CartProduct>,
     required: true
+  },
+  emitFunction: {
+    type: Function as PropType<Function>
   }
 })
+
+console.log(props.product)
+
+const emit = defineEmits(['emitDeleteProduct'])
 
 const useAuthUser = useAuthUserStore()
 const useShoppingCart = useShoppingCartStore()
@@ -31,6 +38,7 @@ const handleDeleteProduct = () => {
   detachProductFromCart(useAuthUser.authUser?.id as number, props.product.id as number).then(
     (data) => {
       useShoppingCart.setCartProducts(data)
+      emit('emitDeleteProduct')
       loading.value = false
       closeModal()
     }

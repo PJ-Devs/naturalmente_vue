@@ -35,6 +35,10 @@ const updateQuantity = (newQuantity: number) => {
   quantity.value = newQuantity
 }
 
+const deleteFromCart = () => {
+  isProductInCart.value = [false, null]
+}
+
 const handleAddToCart = () => {
   async function addToCart() {
     try {
@@ -47,12 +51,14 @@ const handleAddToCart = () => {
             }
           ).then((data) => {
             useShoppingCart.setCartProducts(data)
+            isProductInCart.value = [true, data[data.length - 1]]
           })
         : await attachProductToCart(
             useAuthUser.getUser?.id as number,
             product.value?.id as number
           ).then((data) => {
             useShoppingCart.setCartProducts(data)
+            isProductInCart.value = [true, data[data.length - 1]]
           })
     } catch (error) {
       throw new Error('Error al agregar al carrito' + error)
@@ -118,12 +124,16 @@ onMounted(() => {
         >
           Agregar al carrito
         </button>
-        <ModalDettachProduct class="w-full" v-else :product="isProductInCart[1] as CartProduct">
+        <ModalDettachProduct
+          class="w-full"
+          v-else
+          :product="isProductInCart[1] as CartProduct"
+          @emitDeleteProduct="deleteFromCart"
+        >
           <template #button="{ openModal }">
             <button class="del-btn w-full" @click="openModal">Eliminar de mi carrito</button>
           </template>
         </ModalDettachProduct>
-        <button class="primaryBtn w-full">Comprar</button>
       </div>
     </section>
   </section>

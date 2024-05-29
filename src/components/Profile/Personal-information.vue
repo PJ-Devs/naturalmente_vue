@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import GenericInput from '../Generic-input.vue'
 import profileInput from '../../utilities/profile-Input.json'
-import { API_BASE_URL } from '@/config/constants.js'
+import { API_BASE_URL } from '../../config/constants.js'
 import { useAuthUserStore } from '../../stores/authUser'
 import ErrorModal from './ErrorModal.vue'
+import ModalMessage from '../../components/ShoppingCart/ModalMessage.vue'
+
 import { ref } from 'vue'
 import * as yup from 'yup'
 
@@ -11,6 +13,7 @@ let inputs = profileInput
 const useAuthUser = useAuthUserStore()
 const showErrorModal = ref(false)
 const errorMessages = ref([])
+const onUpdateUser = ref(false)
 
 const updateUserField = (fieldName, value) => {
   useAuthUser.setUser({ ...useAuthUser.getUser, [fieldName]: value })
@@ -52,15 +55,17 @@ const submitForm = async () => {
       phone_number: useAuthUser.getUser?.phone_number,
       address: useAuthUser.getUser?.address
     }
-    console.log('User data', userData)
     await userSchema.validate(userData, { abortEarly: false })
     const userId = useAuthUser.getUser?.id
-    const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
+    const url = `${API_BASE_URL}/users/${userId}`
+    const response = await fetch(url, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userData)
+    }).then(() => {
+      onUpdateUser.value = true
     })
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -74,6 +79,11 @@ const submitForm = async () => {
 </script>
 <template>
   <div class="bg-[#EEE] flex justify-start pt-[7dvh]">
+    <ModalMessage
+      :open="onUpdateUser"
+      @close="onUpdateUser = false"
+      :message="'Datos actualizados correctamente!'"
+    />
     <section class="h-screen flex my-14 justify-center flex-grow">
       <form @submit.prevent="submitForm" class="flex flex-col">
         <h1 class="font-bold text-[--primary] m-2 text-xl">Datos Personales</h1>

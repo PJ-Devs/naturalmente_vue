@@ -57,7 +57,7 @@ export function requireUnAdmin(
   next: NavigationGuardNext
 ): void {
   const authUserStore = useAuthUserStore()
-  if (authUserStore.isLoggedIn.value === false) {
+  if (!authUserStore.isLoggedIn.value) {
     next()
   } else {
     isAdmin().then((response) => {

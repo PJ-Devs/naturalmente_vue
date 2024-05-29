@@ -39,7 +39,7 @@ const logOut = () => {
         <router-view />
       </v-main>
       <!--v-model="drawer" app mini-variant-->
-      <v-navigation-drawer :width="400" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
+      <v-navigation-drawer :width="400" absolute class="drawer pt-[11dvh]" mobile-break-point="0">
         <v-list-item
           :title="`Bienvenido de vuelta, ${useAuthUser.authUser?.name}`"
           subtitle="Menu de navegacion"
@@ -62,20 +62,6 @@ const logOut = () => {
               </template>
             </v-list-item>
           </router-link>
-          <v-list-item
-            link
-            prepend-icon="mdi-basket"
-            title="Mis compras"
-            value="shopping"
-            @click="selectedItem = 'shopping'"
-          >
-            <template v-slot:append>
-              <v-btn
-                :icon="selectedItem === 'shopping' ? 'mdi-chevron-right' : 'mdi-chevron-left'"
-                variant="text"
-              ></v-btn>
-            </template>
-          </v-list-item>
           <router-link to="/profile/buys">
             <v-list-item
               link

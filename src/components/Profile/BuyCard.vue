@@ -29,6 +29,6 @@ const props = defineProps({
         </span>
       </section>
     </section>
-    <BuySummary :products="props.sell.products as CartProduct[]" />
+    <BuySummary :products="props.sell.products as CartProduct[]" :cost="props.sell.total_price" />
   </section>
 </template>

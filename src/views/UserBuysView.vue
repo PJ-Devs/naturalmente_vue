@@ -36,7 +36,7 @@ onMounted(fetchBuys)
 </script>
 
 <template>
-  <section class="min-h-screen max-h-fit pt-[7dvh]">
+  <section class="min-h-screen max-h-fit pt-[11dvh]">
     <section>
       <h2
         class="text-xl font-semibold mx-[20%] py-3 px-4 border-2 bg-opacity-80 rounded-md shadow-md bg-white"

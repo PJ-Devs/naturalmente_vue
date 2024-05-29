@@ -7,6 +7,10 @@ const props = defineProps({
   products: {
     type: Array as PropType<CartProduct[]>,
     required: true
+  },
+  cost: {
+    type: Number,
+    required: true
   }
 })
 </script>
@@ -20,7 +24,7 @@ const props = defineProps({
         {{ `Artículos comprados: ${props.products ? countTotalProducts(props.products) : 0}` }}
       </span>
       <span className="text-xl font-semibold text-orange-500">
-        {{ `${showCurrency(sumTotalPrice(props.products))}` }}
+        {{ `${showCurrency(props.cost)}` }}
       </span>
     </summary>
     <section className="px-[3%] py-2 bg-white rounded-b-lg">
@@ -38,9 +42,21 @@ const props = defineProps({
           </span>
         </li>
         <li className="flex flex-row justify-between py-0.5">
+          <span className="font-semibold text-md">Impuestos (IVA)</span>
+          <span className="font-semibold text-sm text-orange-500">
+            {{ `${showCurrency(sumTotalPrice(props.products) * 0.19)} COP` }}
+          </span>
+        </li>
+        <li className="flex flex-row justify-between py-0.5">
+          <span className="font-semibold text-md">Costes de envío</span>
+          <span className="font-semibold text-sm text-orange-500">
+            {{ `${showCurrency(sumTotalPrice(props.products) * 0.07)} COP` }}
+          </span>
+        </li>
+        <li className="flex flex-row justify-between py-0.5">
           <span className="font-semibold text-md">Total</span>
           <span className="font-semibold text-sm text-orange-500">
-            {{ `${showCurrency(sumTotalPrice(props.products))} COP` }}
+            {{ `${showCurrency(props.cost)} COP` }}
           </span>
         </li>
       </ul>
