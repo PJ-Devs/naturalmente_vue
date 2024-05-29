@@ -56,13 +56,18 @@ export function requireUnAdmin(
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ): void {
-  isAdmin().then((response) => {
-    if (response) {
-      next({ name: 'admin' })
-    } else {
-      next()
-    }
-  })
+  const authUserStore = useAuthUserStore()
+  if (authUserStore.isLoggedIn.value === false) {
+    next()
+  } else {
+    isAdmin().then((response) => {
+      if (response) {
+        next({ name: 'admin' })
+      } else {
+        next()
+      }
+    })
+  }
 }
 
 const router = createRouter({

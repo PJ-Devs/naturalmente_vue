@@ -2,11 +2,12 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { showCurrency } from '@/helpers'
-import type { Product } from '../../types'
+import type { CartProduct, Product } from '../../types'
 import { attachProductToCart } from '@/API/shoppingCart'
 import IncrementalButton from './IncrementalButton.vue'
 import fetchGlobal from '../../helpers/gloabalFetch'
 import LoadingSpinner from '../LoadingSpinner.vue'
+import ModalDettachProduct from '../ShoppingCart/ModalDettachProduct.vue'
 import { useAuthUserStore } from '@/stores/authUser'
 import { useShoppingCartStore } from '@/stores/shoppingCart'
 import { toast } from 'vue3-toastify'
@@ -16,6 +17,8 @@ const router = useRouter()
 const route = useRoute()
 const product = ref<Product | null>(null)
 const quantity = ref(1)
+// First postion is a boolean to check if the product is in the cart, second position is the product in the cart
+const isProductInCart = ref<[Boolean, CartProduct | null]>([false, null])
 const useAuthUser = useAuthUserStore()
 const useShoppingCart = useShoppingCartStore()
 
@@ -50,7 +53,6 @@ const handleAddToCart = () => {
             product.value?.id as number
           ).then((data) => {
             useShoppingCart.setCartProducts(data)
-            toast.success('Inicio de sesión exitoso')
           })
     } catch (error) {
       throw new Error('Error al agregar al carrito' + error)
@@ -60,7 +62,19 @@ const handleAddToCart = () => {
   addToCart()
 }
 
-onMounted(fetchProduct)
+onMounted(() => {
+  fetchProduct().then(() => {
+    if (useAuthUser.isLoggedIn.value) {
+      const productInCart = useShoppingCart.cartProducts.find(
+        (cartProduct) => cartProduct.id === product.value?.id
+      )
+      if (productInCart) {
+        isProductInCart.value = [true, productInCart]
+        console.log('Product in cart:', isProductInCart.value)
+      }
+    }
+  })
+})
 </script>
 
 <template>
@@ -90,6 +104,7 @@ onMounted(fetchProduct)
       </div>
       <div class="flex flex-row gap-3 py-5">
         <button
+          v-if="!isProductInCart[0]"
           class="primaryBtn w-full"
           @click="
             () => {
@@ -103,6 +118,11 @@ onMounted(fetchProduct)
         >
           Agregar al carrito
         </button>
+        <ModalDettachProduct class="w-full" v-else :product="isProductInCart[1] as CartProduct">
+          <template #button="{ openModal }">
+            <button class="del-btn w-full" @click="openModal">Eliminar de mi carrito</button>
+          </template>
+        </ModalDettachProduct>
         <button class="primaryBtn w-full">Comprar</button>
       </div>
     </section>
@@ -134,5 +154,20 @@ onMounted(fetchProduct)
 .btn:hover {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
+}
+
+.del-btn {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.del-btn:hover {
+  background-color: #ff4d4d;
 }
 </style>
