@@ -25,10 +25,9 @@ onMounted(() => {
       <div class="orders">
         <OrderCard
           v-for="order in orders"
-          :key="order.id"
-          :price="order.total_price"
-          :status="order.status"
-          :order_date="order.created_at"
+          :sell="order"
+          v-bind:key="order.id"
+          @emitRefreshOrders="fetchOrders"
         />
       </div>
       <div v-if="!orders">
@@ -74,6 +73,7 @@ onMounted(() => {
 .orders {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 1rem;
   height: 90%;
 }

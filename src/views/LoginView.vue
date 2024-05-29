@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { loginUser, getUser } from '../API/authUsers'
+import { loginUser, getUser, isAdmin } from '../API/authUsers'
 import { useAuthUserStore } from '../stores/authUser'
 import { getProductsFromCart } from '../API/shoppingCart'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
@@ -49,8 +49,13 @@ const handleLogin = (e: Event) => {
       })
     })
     .then(() => {
-      toast.success('Inicio de sesión exitoso')
-      router.push('/')
+      isAdmin().then((data) => {
+        if (data) {
+          router.push('/admin')
+        } else {
+          router.push('/')
+        }
+      })
     })
     .catch((error) => {
       console.error(error)

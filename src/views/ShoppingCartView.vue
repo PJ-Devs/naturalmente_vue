@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="min-h-screen max-h-fit pt-[7dvh] bg-[#EEE] bg-opacity-50">
+  <section class="min-h-screen max-h-fit pt-[11dvh] bg-[#EEE] bg-opacity-50">
     <LoadingSpinner v-if="loading" />
     <section className="min-h-[90dvh] mx-[10dvw] grid grid-cols-3 my-5">
       <section className="col-span-2 mx-[1%]">

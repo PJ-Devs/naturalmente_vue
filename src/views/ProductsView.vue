@@ -32,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section className="min-h-screen max-h-fit pt-[7dvh] mx-[10dvw]">
+  <section className="min-h-screen max-h-fit pt-[11dvh] mx-[10dvw]">
     <LoadingSpinner v-if="loading" />
     <section v-if="loading === false" className="grid grid-cols-4 my-5">
       <ProductSidebar />

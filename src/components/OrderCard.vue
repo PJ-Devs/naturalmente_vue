@@ -1,20 +1,40 @@
 <script setup>
+import { showCurrency } from '@/helpers'
+import ModalSell from '../components/ModalSell.vue'
+import { API_BASE_URL } from '@/config/constants.js'
+
 const props = defineProps({
-  price: Number,
-  status: String,
-  order_date: String
+  sell: {
+    type: Object,
+    required: true
+  }
 })
+
+const emit = defineEmits(['emitRefreshOrders'])
+
+const acceptOrder = async (id) => {
+  await fetch(`${API_BASE_URL}/sells/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ status: 'accepted' })
+  }).then(() => {
+    emit('emitRefreshOrders')
+  })
+}
 </script>
 
 <template>
   <div class="order-container">
+    <ModalSell :sell="props.sell" @emitAcceptOrder="acceptOrder" />
     <div class="img-container">
       <img class="icon" src="../assets/icons/order.svg" alt="order" />
     </div>
     <div class="order-info">
-      <span class="text-desc">{{ props.order_date }}</span>
-      <span class="text-desc"> {{ props.status }}</span>
-      <span class="text-desc"> {{ props.price }}</span>
+      <span class="text-desc">{{ props.sell.created_at }}</span>
+      <span class="text-desc font-semibold"> {{ props.sell.status }}</span>
+      <span class="text-desc"> {{ showCurrency(props.sell.total_price) + ' COP' }}</span>
     </div>
   </div>
 </template>
@@ -32,10 +52,6 @@ const props = defineProps({
   transition: 0.3s;
   cursor: pointer;
   height: fit-content;
-}
-
-.order-container:hover {
-  transform: scale(1.05);
 }
 
 .img-container {

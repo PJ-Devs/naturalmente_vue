@@ -34,7 +34,11 @@ const handleBuyCart = () => {
 
 <template>
   <section class="col-span-1">
-    <ModalMessage :open="openOnBuy" @close="openOnBuy = false" />
+    <ModalMessage
+      :open="openOnBuy"
+      @close="openOnBuy = false"
+      :message="'Felicidades! Tu compra se ha realizado con éxito.'"
+    />
     <div class="border-2 px-5 py-3 bg-gray-50 rounded-lg">
       <details class="hover:cursor-pointer py-1 duration-700">
         <summary class="flex justify-between bg-inherit text-lg">

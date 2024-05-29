@@ -1,22 +1,20 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import { useAuthUserStore } from '@/stores/authUser'
+import { logoutUser } from '@/API/authUsers'
+import { BiShop, FaUserCircle, CoFeaturedPlaylist, IoExitOutline } from 'oh-vue-icons/icons'
 
+addIcons(BiShop, FaUserCircle, CoFeaturedPlaylist, IoExitOutline)
+
+const useAuthUser = useAuthUserStore()
 const router = useRouter()
 
-const goRoute = (route) => {
-  switch (route) {
-    case 1:
-      router.push('/admin/products')
-      break
-    case 2:
-      router.push('/admin/orders')
-      break
-    case 3:
-      router.push('/admin/clients')
-      break
-    default:
-      break
-  }
+const logOut = () => {
+  logoutUser().then(() => {
+    useAuthUser.logout()
+    router.push('/')
+  })
 }
 </script>
 
@@ -40,26 +38,36 @@ const goRoute = (route) => {
         <li class="separator flex">
           <RouterLink
             to="/admin/products"
-            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150 items-center"
+            class="flex gap-3 justify-center hover:cursor-pointer hover:text-[--primary] transition-all duration-150 items-center"
           >
+            <OhVueIcon name="bi-shop" scale="2" />
             Productos
           </RouterLink>
         </li>
         <li class="separator flex">
           <RouterLink
             to="/admin/clients"
-            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
+            class="flex gap-3 justify-center items-center hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
           >
+            <OhVueIcon name="fa-user-circle" scale="2" />
             Clientes
           </RouterLink>
         </li>
         <li class="separator flex">
           <RouterLink
             to="/admin/orders"
-            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
+            class="flex gap-3 justify-center items-center hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
           >
+            <OhVueIcon name="co-featured-playlist" scale="2" />
             Pedidos
           </RouterLink>
+        </li>
+        <li
+          class="separator flex gap-3 justify-center items-center hover:cursor-pointer hover:text-red-500 transition-all duration-150"
+          @click="logOut"
+        >
+          <OhVueIcon name="io-exit-outline" scale="2" />
+          Cerrar sesión
         </li>
       </ul>
     </div>
