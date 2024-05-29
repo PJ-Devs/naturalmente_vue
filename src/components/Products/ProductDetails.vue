@@ -65,9 +65,13 @@ onMounted(fetchProduct)
 
 <template>
   <LoadingSpinner v-if="!product" />
-  <section v-if="product" class="min-h-screen max-h-fit grid grid-cols-2 mx-[10dvw] pt-[7dvh]">
-    <section class="w-full">
-      <img :src="product.img" :alt="product.name" class="w-full h-auto" />
+  <section v-if="product" class="grid grid-cols-2 mx-[10dvw] pt-[7dvh]">
+    <section class="w-full flex justify-center">
+      <img
+        src="//artemisa.co/cdn/shop/products/vitamina-c-1000-mg-with-rose-hips-x-60-softgels-414669_large.jpg?v=1660859155"
+        :alt="product.name"
+        class="w-[20rem] h-[20rem]"
+      />
     </section>
     <section class="flex flex-col w-[90%] mx-auto">
       <div class="font-semibold text-4xl py-6">
@@ -99,8 +103,36 @@ onMounted(fetchProduct)
         >
           Agregar al carrito
         </button>
-        <button class="primaryBtn bg-orange-300 hover:bg-orange-400 w-full">Comprar</button>
+        <button class="primaryBtn w-full">Comprar</button>
       </div>
     </section>
   </section>
+  <button
+    class="btn mx-[10dvw] mt-[5dvh]"
+    @click="
+      () => {
+        router.push('/productos')
+      }
+    "
+  >
+    Ver todos los productos!
+  </button>
 </template>
+
+<style scoped>
+.btn {
+  background-color: rgba(0, 0, 0, 0.15);
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: solid 0.1rem rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+</style>

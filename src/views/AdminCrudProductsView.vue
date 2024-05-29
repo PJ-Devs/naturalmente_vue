@@ -1,6 +1,6 @@
 <script setup>
 import ProductsForm from '@/components/ProductsForm.vue'
-import ProductCard from '@/components/AdminProductCard.vue'
+import AdminProductCard from '@/components/AdminProductCard.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { API_BASE_URL } from '@/config/constants.js'
@@ -58,7 +58,7 @@ onMounted(() => {
       </div>
       <div class="products-container">
         <div class="products">
-          <ProductCard
+          <AdminProductCard
             v-for="product in pageProducts"
             :key="product.id"
             :id="product.id"
@@ -81,7 +81,7 @@ onMounted(() => {
           class="btn-p"
           @click="
             () => {
-              router.push('/admin/products/all')
+              router.push('/productos')
             }
           "
         >

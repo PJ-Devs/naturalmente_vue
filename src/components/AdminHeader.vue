@@ -21,42 +21,56 @@ const goRoute = (route) => {
 </script>
 
 <template>
-  <header class="header-container">
-    <div class="links-container">
-      <span @click="goRoute(1)" class="link">Productos</span>
-      <span @click="goRoute(2)" class="link">Pedidos</span>
-      <span @click="goRoute(3)" class="link">Clientes</span>
+  <header
+    class="z-10 bg-[#FFF] bg-opacity-90 flex justify-between items-center mx-[10dvw] rounded-[50px] px-[2rem] py-[0.4rem] text-[1rem] text-[--text]"
+  >
+    <div
+      class="w-fit flex gap-0 text-[1.5rem] hover:cursor-pointer bg-gradient-to-r from-[--accent] to-[--primary] text-transparent bg-clip-text"
+      @click="
+        () => {
+          $router.push('/')
+        }
+      "
+    >
+      <span class=""> Natural </span>
+      <span class="">mente</span>
     </div>
-    <div class="burguer-menu"><span>|||||||</span></div>
+    <div>
+      <ul class="flex justify-center items-center gap-[1rem]">
+        <li class="separator flex">
+          <RouterLink
+            to="/admin/products"
+            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150 items-center"
+          >
+            Productos
+          </RouterLink>
+        </li>
+        <li class="separator flex">
+          <RouterLink
+            to="/admin/clients"
+            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
+          >
+            Clientes
+          </RouterLink>
+        </li>
+        <li class="separator flex">
+          <RouterLink
+            to="/admin/orders"
+            class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
+          >
+            Pedidos
+          </RouterLink>
+        </li>
+      </ul>
+    </div>
   </header>
 </template>
 
 <style scoped>
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
-  box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
-}
-
-.links-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 80%;
-  gap: 1rem;
-  text-align: center;
-}
-
-.link {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary);
-  cursor: pointer;
-  transition: 0.3s;
-  width: fit-content;
-}
-
-.link:hover {
-  color: var(--accent);
+.separator:not(:last-child) {
+  content: '';
+  border-right: 1px solid black;
+  padding-right: 1rem;
+  height: 2rem;
 }
 </style>

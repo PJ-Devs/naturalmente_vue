@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true
 
 const API = axios.create({
   baseURL: 'http://localhost:8000/api/v1'
@@ -12,8 +12,8 @@ const API = axios.create({
 // })
 
 API.interceptors.response.use((response) => {
-  console.log(response.data);
-  return response;
+  console.log(response.data)
+  return response
 })
 
-export default API;
+export default API
