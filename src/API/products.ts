@@ -1,11 +1,12 @@
 import type { Product } from '../types';
 import type { Ref } from 'vue';
+import {API_BASE_URL} from '@/config/constants.js'; 
 
 
 export const getProducts = async (loading: Ref<boolean>, productList: Ref<Product[]>) => {
   try {
     loading.value = true;
-    await fetch('http://localhost:8000/api/v1' + "/products")
+    await fetch(`${API_BASE_URL}/products`)
       .then((res) => res.json())
       .then((data) => {
         productList.value.push(...data.data);

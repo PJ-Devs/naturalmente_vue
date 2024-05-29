@@ -1,6 +1,9 @@
 <script setup>
 import DeleteModal from '@/components/DeleteModal.vue'
 import EditModal from '@/components/EditModal.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   id: Number,
@@ -11,7 +14,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="product-container">
+  <div
+    class="product-container"
+    @click="
+      () => {
+        router.push('/productos/' + props.id)
+      }
+    "
+  >
     <div class="img-container">
       <img
         src="//artemisa.co/cdn/shop/products/vitamina-c-1000-mg-with-rose-hips-x-60-softgels-414669_large.jpg?v=1660859155"
@@ -38,6 +48,10 @@ const props = defineProps({
   box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
   transition: 0.3s;
   cursor: pointer;
+}
+
+.product-container:hover {
+  transform: scale(1.05);
 }
 
 .img-container {

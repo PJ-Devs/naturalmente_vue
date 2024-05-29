@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true
 
 const API = axios.create({
-  baseURL: 'http://192.168.9.109/api/v1'
-});
+  baseURL: 'http://192.168.0.34:8000/api/v1'
+})
 
 // API.interceptors.request.use((request) => {
 //   console.log(request)
@@ -12,8 +12,8 @@ const API = axios.create({
 // })
 
 API.interceptors.response.use((response) => {
-  console.log(response.data);
-  return response;
+  console.log(response.data)
+  return response
 })
 
-export default API;
+export default API
