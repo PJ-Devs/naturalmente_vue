@@ -114,21 +114,24 @@ const router = createRouter({
           component: () => import('../views/ProfileView.vue'),
           children: [
             {
-              path: '',
-              redirect: 'profile/account'
-            },
-            {
               path: 'account',
+              name: 'Account',
               component: import('../components/Profile/Personal-information.vue')
             },
             {
               path: 'changePassword',
+              name: 'ChangePassword',
               component: import('../components/Profile/SettingMyAccount.vue')
             },
             {
               path: 'buys',
+              name: 'Buys',
               component: import('../views/UserBuysView.vue')
-            }
+            },
+            {
+              path: '',
+              redirect: { name: 'Account' }
+            },
           ]
         }
       ]
