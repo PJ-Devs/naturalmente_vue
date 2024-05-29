@@ -56,7 +56,7 @@ const useShoppingCart = useShoppingCartStore()
             to="/login"
             class="hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
           >
-            Incio de sesión
+            Inicio de sesión
           </RouterLink>
         </li>
         <li v-if="useAuthUser.isLoggedIn.value" class="separator flex">

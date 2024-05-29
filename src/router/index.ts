@@ -2,14 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AdminLayout from '@/layouts/AdminLayout.vue'
 import UserLayout from '@/layouts/UserLayout.vue'
 import AdminCrudProductsView from '@/views/AdminCrudProductsView.vue'
-import AdminProductsView from '@/views/AdminProductsView.vue'
 import AdminClientsView from '@/views/AdminClientsView.vue'
 import AdminOrdersView from '@/views/AdminOrdersView.vue'
 import { useAuthUserStore } from '../stores/authUser'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProductsView from '../views/ProductsView.vue'
-
 
 export function requireUnAuth(
   to: RouteLocationNormalized,
@@ -52,11 +50,6 @@ const router = createRouter({
           component: AdminCrudProductsView
         },
         {
-          path: '/admin/products/all',
-          name: 'admin-products-all',
-          component: AdminProductsView
-        },
-        {
           path: '/admin/clients',
           name: 'admin-clients',
           component: AdminClientsView
@@ -70,9 +63,9 @@ const router = createRouter({
     },
     {
       path: '/',
-      name: 'Home',
+      name: 'Main',
       component: UserLayout,
-      redirect : { name: 'Home' },
+      redirect: { name: 'Home' },
       children: [
         {
           path: '/',
@@ -105,7 +98,7 @@ const router = createRouter({
         {
           path: '/productos/:id',
           name: 'ProductDetails',
-          component: () => import('../components/UserViewProducts/ProductDetails.vue')
+          component: () => import('../components/Products/ProductDetails.vue')
         },
         {
           path: '/profile',
@@ -128,7 +121,7 @@ const router = createRouter({
           ]
         }
       ]
-    },
+    }
   ]
 })
 

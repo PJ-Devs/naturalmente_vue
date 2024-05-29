@@ -27,11 +27,11 @@ const handleClickCard = () => {
 
 <template>
   <section
-    className="grid grid-cols-4 rounded-lg shadow-md bg-gray-100 hover:cursor-pointer hover:bg-gray-200"
+    className="grid grid-cols-4 rounded-lg shadow-md bg-white-100 hover:cursor-pointer hover:bg-gray-100"
     @click="handleClickCard"
   >
     <section className="flex col-span-1 justify-center items-center">
-      <img src="" alt="Imagen de producto" />
+      <img src="//artemisa.co/cdn/shop/products/vitamina-c-1000-mg-with-rose-hips-x-60-softgels-414669_large.jpg?v=1660859155" alt="Imagen de producto" className="w-[8rem] h-[8rem]" />
     </section>
 
     <section className="p-5 col-span-3">

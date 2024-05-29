@@ -1,6 +1,7 @@
 <script setup>
 import DeleteModal from '@/components/DeleteModal.vue'
 import EditModal from '@/components/EditModal.vue'
+import { showCurrency } from '@/helpers'
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -48,7 +49,7 @@ const manageEditModal = () => {
     </div>
     <div class="product-info">
       <span class="product-name">{{ props.name }}</span>
-      <span class="text-desc"> {{ props.price }}</span>
+      <span class="text-desc"> {{ showCurrency(props.price) }}</span>
       <span class="text-desc"> Cantidad: {{ props.quantity }}</span>
     </div>
   </div>

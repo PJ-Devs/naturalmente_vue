@@ -29,7 +29,7 @@ body {
 
 .primaryBtn {
   background-color: var(--primary);
-  color: var(--background);
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 50px;
   border: none;
@@ -39,7 +39,7 @@ body {
 }
 
 .primaryBtn:hover {
-  background-color: var(--secondary);
+  background-color: var(--accent);
 }
 
 .formInput {
