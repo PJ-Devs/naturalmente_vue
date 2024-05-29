@@ -1,8 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VApp, VMain, VNavigationDrawer, VListItem, VDivider, VBtn,VList } from 'vuetify/components'
-let selectedItem = ref('')
-let drawer = ref(false)
+import {
+  VApp,
+  VMain,
+  VNavigationDrawer,
+  VListItem,
+  VDivider,
+  VBtn,
+  VList
+} from 'vuetify/components'
+import { useAuthUserStore } from '@/stores/authUser'
+import { logoutUser } from '@/API/authUsers'
+import { useRouter } from 'vue-router'
+
+const useAuthUser = useAuthUserStore()
+const router = useRouter()
+
+const selectedItem = ref('')
+const drawer = ref(false)
+
+const logOut = () => {
+  logoutUser().then(() => {
+    useAuthUser.logout()
+    router.push('/')
+  })
+}
 </script>
 
 <template>
@@ -17,8 +39,11 @@ let drawer = ref(false)
         <router-view />
       </v-main>
       <!--v-model="drawer" app mini-variant-->
-      <v-navigation-drawer :width="300" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
-        <v-list-item title="Mi perfil" subtitle="Menu de navegacion"></v-list-item>
+      <v-navigation-drawer :width="400" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
+        <v-list-item
+          :title="`Bienvenido de vuelta, ${useAuthUser.authUser?.name}`"
+          subtitle="Menu de navegacion"
+        ></v-list-item>
         <v-divider></v-divider>
         <v-list density="compact" nav>
           <router-link to="/profile/account">
@@ -51,13 +76,33 @@ let drawer = ref(false)
               ></v-btn>
             </template>
           </v-list-item>
+          <router-link to="/profile/buys">
+            <v-list-item
+              link
+              prepend-icon="mdi-basket"
+              title="Mis compras"
+              value="shopping"
+              @click="selectedItem = 'shopping'"
+            >
+              <template v-slot:append>
+                <v-btn
+                  :icon="selectedItem === 'shopping' ? 'mdi-chevron-right' : 'mdi-chevron-left'"
+                  variant="text"
+                ></v-btn>
+              </template>
+            </v-list-item>
+          </router-link>
           <v-list-item
             link
             class="text-black hover:bg-red-300 py-3 transition-all duration-100"
             prepend-icon="mdi-logout"
             title="Cerrar sesión"
             value="logout"
-            @click="selectedItem = 'logout'"
+            @click="
+              () => {
+                logOut()
+              }
+            "
           >
           </v-list-item>
         </v-list>

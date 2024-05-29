@@ -1,37 +1,39 @@
 <script setup lang="ts">
-  import { defineProps } from 'vue';
+import { defineProps } from 'vue'
 
-  const props = defineProps({
-    type: {
-      type: String,
-      default: 'text'
-    },
-    placeholder: {
-      type: String,
-      default: ''
-    },
-    value: {
-      type: [String, Number],
-      default: ''
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    label: {
-      type: String,
-      default: ''
-    },
-    required: {
-      type: Boolean,
-      default: false
-    }
-  });
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'text'
+  },
+  placeholder: {
+    type: String,
+    default: ''
+  },
+  value: {
+    type: [String, Number],
+    default: ''
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  required: {
+    type: Boolean,
+    default: false
+  }
+})
 </script>
 
 <template>
   <div class="mb-4">
-    <label v-if="props.label" class="block text-gray-700 text-sm font-bold mb-2">{{ props.label }}</label>
+    <label v-if="props.label" class="block text-gray-700 text-sm font-bold mb-2">{{
+      props.label
+    }}</label>
     <input
       :type="props.type"
       :placeholder="props.placeholder"
@@ -43,6 +45,3 @@
     />
   </div>
 </template>
-
-
-

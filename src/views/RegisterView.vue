@@ -15,9 +15,9 @@ const newUser = ref({
   email: '',
   password: ''
 })
+const emailValid = ref(false)
+const passwordValid = ref(false)
 const loading = ref(false)
-
-const showPassword = ref(false)
 
 /**
  * Handle the change of the input values
@@ -28,6 +28,13 @@ const handleCangeInput = (e: Event) => {
   newUser.value = {
     ...newUser.value,
     [target.name]: target.value
+  }
+
+  // Check if the password or email are invalid
+  if (target.name === 'password') {
+    passwordValid.value = PASSWORD_REGEX.test(target.value)
+  } else if (target.name === 'email') {
+    emailValid.value = EMAIL_REGEX.test(target.value)
   }
 }
 
@@ -100,11 +107,11 @@ const handleRegister = (e: Event) => {
             alt="Email icon"
           />
           <input
-            class="formInput bg-gray-50 w-[25dvw]"
+            :class="['validate-input', !emailValid && 'invalid']"
             type="email"
             placeholder="Correo electronico"
             name="email"
-            @change="handleCangeInput"
+            @input="handleCangeInput"
           />
         </div>
         <div class="input-group">
@@ -115,22 +122,13 @@ const handleRegister = (e: Event) => {
               alt="Password icon"
             />
           </div>
-        <input
-          class="formInput bg-gray-50 w-[25dvw]"
-          :type="showPassword ? 'text' : 'password'"
-          placeholder="Contraseña"
-          name="password"
-          @change="handleCangeInput"
-          
-        />
-        <span
-        class="cursor-pointer m-0"
-        @click="showPassword = !showPassword"
-        style="font-size: 1.5rem; line-height: 1; color: #4B5563;"
-      >
-        {{ showPassword ? '👁️' : '👁️‍🗨️' }}
-      </span>
-
+          <input
+            :class="['validate-input', !passwordValid && 'invalid']"
+            type="password"
+            placeholder="Contraseña"
+            name="password"
+            @input="handleCangeInput"
+          />
         </div>
         <button class="primaryBtn mt-4" @click="handleRegister">Registrarse</button>
       </form>
@@ -147,4 +145,21 @@ const handleRegister = (e: Event) => {
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.validate-input {
+  padding: 0.5rem 0 0.5rem 2.8rem;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  width: 25dvw;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.validate-input:focus {
+  outline: 2px solid var(--secondary);
+}
+
+.invalid:focus {
+  outline: 2px solid rgb(250, 15, 15);
+}
+</style>
