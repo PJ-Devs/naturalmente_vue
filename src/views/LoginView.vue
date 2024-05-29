@@ -2,17 +2,18 @@
 import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { loginUser, getUser } from '../API/authUsers'
+import { loginUser, getUser, isAdmin } from '../API/authUsers'
 import { useAuthUserStore } from '../stores/authUser'
+import { getProductsFromCart } from '../API/shoppingCart'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import type { Customer } from '@/types'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { useShoppingCartStore } from '@/stores/shoppingCart'
 
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
 const router = useRouter()
 const useAuthUser = useAuthUserStore()
+const shoppingCart = useShoppingCartStore()
 
 const user = ref({
   email: '',
@@ -37,19 +38,24 @@ const handleLogin = (e: Event) => {
   e.preventDefault()
   loading.value = true
 
-  // Check if the password or email are invalid
-  if (!PASSWORD_REGEX.test(user.value.password) || !EMAIL_REGEX.test(user.value.email)) {
-    loading.value = false
-    return
-  }
-
   loginUser(user.value, loading)
     .then(() => {
       const user = getUser()
       user.then((data) => {
         useAuthUser.setUser(data as Customer)
       })
-      router.push('/')
+      getProductsFromCart(useAuthUser.getUser?.id as number, loading).then((data) => {
+        shoppingCart.setCartProducts(data)
+      })
+    })
+    .then(() => {
+      isAdmin().then((data) => {
+        if (data) {
+          router.push('/admin')
+        } else {
+          router.push('/')
+        }
+      })
     })
     .catch((error) => {
       console.error(error)
@@ -111,5 +117,4 @@ const handleLogin = (e: Event) => {
   </section>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

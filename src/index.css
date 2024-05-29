@@ -29,7 +29,7 @@ body {
 
 .primaryBtn {
   background-color: var(--primary);
-  color: var(--background);
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 50px;
   border: none;
@@ -39,7 +39,7 @@ body {
 }
 
 .primaryBtn:hover {
-  background-color: var(--secondary);
+  background-color: var(--accent);
 }
 
 .formInput {
@@ -51,4 +51,20 @@ body {
 
 .formInput:focus {
   outline: 2px solid var(--secondary);
+}
+
+.secondary-btn {
+  background-color: #f3f4f6;
+  border: 2px solid #d1d5db;
+  border-radius: 50px;
+  color: #111827;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s;
+}
+
+.secondary-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #9ca3af;
 }
