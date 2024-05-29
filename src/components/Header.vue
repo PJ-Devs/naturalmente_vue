@@ -2,19 +2,13 @@
 import { RouterLink } from 'vue-router'
 import { useAuthUserStore } from '../stores/authUser'
 import { useShoppingCartStore } from '../stores/shoppingCart'
+import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import { BiShop, HiShoppingBag, FaUserCircle } from 'oh-vue-icons/icons'
 
-const navRoutes = [
-  {
-    name: 'Catalogo',
-    path: '/productos'
-  },
-  {
-    name: 'Mi carrito',
-    path: '/carrito'
-  }
-]
+addIcons(BiShop, HiShoppingBag, FaUserCircle)
 
 const useAuthUser = useAuthUserStore()
+console.log(useAuthUser.getUser)
 const useShoppingCart = useShoppingCartStore()
 </script>
 
@@ -33,22 +27,6 @@ const useShoppingCart = useShoppingCartStore()
       <span class=""> Natural </span>
       <span class="">mente</span>
     </div>
-    <nav>
-      <ul>
-        <li
-          v-for="route in navRoutes"
-          :key="route.name"
-          class="inline-block mx-[1rem] hover:cursor-pointer hover:text-[--primary] transition-all duration-150"
-          @click="
-            () => {
-              $router.push(route.path)
-            }
-          "
-        >
-          {{ route.name }}
-        </li>
-      </ul>
-    </nav>
     <div>
       <ul class="flex justify-center items-center gap-[1rem]">
         <li v-if="!useAuthUser.isLoggedIn.value" class="separator flex items-center">
@@ -59,23 +37,43 @@ const useShoppingCart = useShoppingCartStore()
             Incio de sesión
           </RouterLink>
         </li>
-        <li v-if="useAuthUser.isLoggedIn.value" class="separator flex">
-          <img class="w-[2rem] hover:cursor-pointer" src="../assets/icons/bag.svg" alt="Bag icon" />
-          <div
-            class="flex items-center justify-center bg-[--secondary] w-[1.6rem] h-[1.6rem] rounded-full relative"
-          >
-            <span class="text-[--text]">
-              {{ useShoppingCart.cartProducts.length }}
-            </span>
-          </div>
+        <li class="separator">
+          <RouterLink to="/productos">
+            <div
+              class="flex gap-3 justify-center items-center hover:text-[--primary] transition-all duration-100"
+            >
+              <OhVueIcon name="bi-shop" scale="2" />
+              <span>Productos</span>
+            </div>
+          </RouterLink>
+        </li>
+        <li v-if="useAuthUser.isLoggedIn.value" class="separator">
+          <RouterLink to="/carrito">
+            <div
+              class="flex gap-3 justify-center items-center hover:text-[--primary] transition-all duration-100 cursor-pointer"
+            >
+              <div class="flex">
+                <OhVueIcon name="hi-shopping-bag" scale="2" />
+                <div
+                  class="flex items-center justify-center bg-[--secondary] w-[1.6rem] h-[1.6rem] rounded-full relative"
+                >
+                  <span class="text-[--text]">
+                    {{ useShoppingCart.cartProducts.length }}
+                  </span>
+                </div>
+              </div>
+              <span>Tu carrito</span>
+            </div>
+          </RouterLink>
         </li>
         <li v-if="useAuthUser.isLoggedIn.value" class="separator">
           <RouterLink to="/profile">
-            <img
-              class="w-[2rem] hover:cursor-pointer"
-              src="../assets/icons/user-circle.svg"
-              alt="User icon"
-            />
+            <div
+              class="flex gap-3 justify-center items-center hover:text-[--primary] transition-all duration-100 cursor-pointer"
+            >
+              <OhVueIcon name="fa-user-circle" scale="2" />
+              <span>Perfil</span>
+            </div>
           </RouterLink>
         </li>
       </ul>

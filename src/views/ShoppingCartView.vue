@@ -44,10 +44,7 @@ onMounted(() => {
           </span>
         </section>
         <div className="flex flex-row justify-between my-4">
-          <button
-            className="bg-white border-4 border-gray-500 text-md text-black rounded-md py-1 px-2"
-            @click="router.push('/productos')"
-          >
+          <button className="secondary-btn" @click="router.push('/productos')">
             Seguir comprando
           </button>
 

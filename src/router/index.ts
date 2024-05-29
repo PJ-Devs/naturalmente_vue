@@ -70,7 +70,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      name: 'Home',
+      name: 'Main',
       component: UserLayout,
       redirect : { name: 'Home' },
       children: [
@@ -105,7 +105,7 @@ const router = createRouter({
         {
           path: '/productos/:id',
           name: 'ProductDetails',
-          component: () => import('../components/UserViewProducts/ProductDetails.vue')
+          component: () => import('../components/Products/ProductDetails.vue')
         },
         {
           path: '/profile',
@@ -124,6 +124,10 @@ const router = createRouter({
             {
               path: 'changePassword',
               component: import('../components/Profile/SettingMyAccount.vue')
+            },
+            {
+              path: 'buys',
+              component: import('../views/UserBuysView.vue')
             }
           ]
         }

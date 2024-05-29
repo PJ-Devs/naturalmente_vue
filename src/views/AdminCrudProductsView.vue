@@ -1,6 +1,6 @@
 <script setup>
 import ProductsForm from '@/components/ProductsForm.vue'
-import ProductCard from '@/components/ProductCard.vue'
+import ProductCard from '@/components/AdminProductCard.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { API_BASE_URL } from '@/config/constants.js'

@@ -1,70 +1,98 @@
 <script setup lang="ts">
 import { showCurrency, sumTotalPrice, getFinalPrice, sumAmountOfProducts } from '@/helpers'
 import { useShoppingCartStore } from '@/stores/shoppingCart'
+import ModalMessage from './ModalMessage.vue'
+import { ref } from 'vue'
+import { useAuthUserStore } from '@/stores/authUser'
+import { makeSell } from '../../API/Sells'
+import type { Sell } from '@/types'
 
+const openOnBuy = ref<boolean>(false)
+const loading = ref<boolean>(false)
+
+const useAuthUser = useAuthUserStore()
 const useShoppingCart = useShoppingCartStore()
+
+const handleBuyCart = () => {
+  const sell: Sell = {
+    user_id: useAuthUser.authUser?.id as number,
+    status: 'pending',
+    total_price: getFinalPrice(sumTotalPrice(useShoppingCart.cartProducts))
+  }
+
+  loading.value = true
+  makeSell(sell)
+    .then(() => {
+      useShoppingCart.setCartProducts([])
+    })
+    .finally(() => {
+      loading.value = false
+      openOnBuy.value = true
+    })
+}
 </script>
 
 <template>
-  <section className="col-span-1">
-    <!-- <ModalMessage isOpen="{open}" closeModal="{closeModal}" message="Pedido realizado con éxito!" /> -->
-    <div className="border-2 px-5 py-3 bg-gray-50 rounded-lg">
-      <details className="hover:cursor-pointer py-1 duration-700">
-        <summary className="flex justify-between bg-inherit text-lg">
-          <span className="font-light">
+  <section class="col-span-1">
+    <ModalMessage :open="openOnBuy" @close="openOnBuy = false" />
+    <div class="border-2 px-5 py-3 bg-gray-50 rounded-lg">
+      <details class="hover:cursor-pointer py-1 duration-700">
+        <summary class="flex justify-between bg-inherit text-lg">
+          <span class="font-light">
             {{ `Artículos comprados: ${sumAmountOfProducts(useShoppingCart.cartProducts)}` }}
           </span>
-          <span className="font-semibold text-color3">
+          <span class="font-semibold text-color3">
             {{ `${showCurrency(sumTotalPrice(useShoppingCart.cartProducts))} COP` }}
           </span>
         </summary>
-        <section className="mx-[5%]">
-          <ul className="divide-y-2 divide-gray-200 py-1">
+        <section class="mx-[5%]">
+          <ul class="divide-y-2 divide-gray-200 py-1">
             <li
               v-for="product in useShoppingCart.cartProducts"
               :key="product.id"
-              className="flex flex-row justify-between py-0.5"
+              class="flex flex-row justify-between py-0.5"
             >
-              <span className="font-light text-md">
+              <span class="font-light text-md">
                 {{ product.name + ` (${product.pivot.orderedQuantity})` }}
               </span>
-              <span className="font-semibold text-sm text-color4">
+              <span class="font-semibold text-sm text-color4">
                 {{ `${showCurrency(product.pivot.orderedQuantity * product.price)} COP` }}
               </span>
             </li>
-            <li className="flex flex-row justify-between py-0.5">
-              <span className="font-semibold text-md">
+            <li class="flex flex-row justify-between py-0.5">
+              <span class="font-semibold text-md">
                 {{ 'Total' }}
               </span>
-              <span className="font-semibold text-sm text-orange-500">
+              <span class="font-semibold text-sm text-orange-500">
                 {{ `${showCurrency(sumTotalPrice(useShoppingCart.cartProducts))} COP` }}
               </span>
             </li>
           </ul>
         </section>
       </details>
-      <div className="flex justify-between text-lg py-1">
-        <span className="font-light">Coste de envio</span>
-        <span className="font-semibold text-color3">
+      <div class="flex justify-between text-lg py-1">
+        <span class="font-light">Coste de envio</span>
+        <span class="font-semibold text-color3">
           {{ showCurrency(sumTotalPrice(useShoppingCart.cartProducts) * 0.07) + ' COP' }}
         </span>
       </div>
-      <div className="flex justify-between text-lg py-1">
-        <span className="font-light">
+      <div class="flex justify-between text-lg py-1">
+        <span class="font-light">
           {{ `Impuestos (IVA)` }}
         </span>
-        <span className="font-semibold text-color3">
+        <span class="font-semibold text-color3">
           {{ showCurrency(sumTotalPrice(useShoppingCart.cartProducts) * 0.19) + ' COP' }}
         </span>
       </div>
-      <div className="flex justify-between text-lg py-1 border-t-2 border-gray-100">
-        <span className="font-light">Subtotal</span>
-        <span className="font-semibold text-orange-500">
+      <div class="flex justify-between text-lg py-1 border-t-2 border-gray-100">
+        <span class="font-light">Subtotal</span>
+        <span class="font-semibold text-orange-500">
           {{ showCurrency(getFinalPrice(sumTotalPrice(useShoppingCart.cartProducts))) + ' COP' }}
         </span>
       </div>
       <button
-        className="w-full flex items-center gap-2 justify-center text-md font-semibold text-white bg-[--primary] hover:bg-[--secondary] rounded-3xl py-2 mt-5"
+        class="w-full flex items-center gap-2 justify-center text-md font-semibold text-white bg-[--primary] hover:bg-[--secondary] rounded-3xl py-2 mt-5"
+        @click="handleBuyCart"
       >
         <!-- <ShoppingCartIcon sx={{ fontSize: 20 }} /> -->
         Realizar pedido
