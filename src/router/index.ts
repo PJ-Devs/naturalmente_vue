@@ -4,10 +4,12 @@ import UserLayout from '@/layouts/UserLayout.vue'
 import AdminCrudProductsView from '@/views/AdminCrudProductsView.vue'
 import AdminClientsView from '@/views/AdminClientsView.vue'
 import AdminOrdersView from '@/views/AdminOrdersView.vue'
+import AdminProductsView from '@/views/AdminProductsView.vue'
 import { useAuthUserStore } from '../stores/authUser'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProductsView from '../views/ProductsView.vue'
+import { isAdmin } from '../API/authUsers'
 
 export function requireUnAuth(
   to: RouteLocationNormalized,
@@ -35,12 +37,41 @@ export function requireAuth(
   }
 }
 
+export function requireAdmin(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+): void {
+  isAdmin().then((response) => {
+    if (!response) {
+      next({ name: 'Home' })
+    } else {
+      next()
+    }
+  })
+}
+
+export function requireUnAdmin(
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+): void {
+  isAdmin().then((response) => {
+    if (response) {
+      next({ name: 'admin' })
+    } else {
+      next()
+    }
+  })
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/admin',
       name: 'admin',
+      beforeEnter: requireAdmin,
       component: AdminLayout,
       redirect: { name: 'admin-products' },
       children: [
@@ -48,6 +79,11 @@ const router = createRouter({
           path: '/admin/products',
           name: 'admin-products',
           component: AdminCrudProductsView
+        },
+        {
+          path: '/admin/products/all',
+          name: 'admin-products-all',
+          component: AdminProductsView
         },
         {
           path: '/admin/clients',
@@ -65,6 +101,7 @@ const router = createRouter({
       path: '/',
       name: 'Main',
       component: UserLayout,
+      beforeEnter: requireUnAdmin,
       redirect: { name: 'Home' },
       children: [
         {

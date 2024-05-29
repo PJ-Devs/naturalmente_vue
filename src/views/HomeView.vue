@@ -1,7 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-  <LoadingSpinner />
   <section class="h-[100dvh] mx-[10dvw] mt-[2dvh] flex items-center relative">
     <div class="w-[50%]">
       <div class="font-extrabold text-[--text] text-[2rem] mb-4 flex gap-2">
@@ -30,8 +29,8 @@
         </li>
       </ul>
     </div>
-    <div class="w-[50%]">
-      <img class="w-full z" src="../assets/images/hero.png" alt="" />
+    <div class="w-[45%] pl-[5%]">
+      <img class="w-full z" src="../assets/images/hero.svg" alt="" />
     </div>
   </section>
   <section class="h-screen"></section>

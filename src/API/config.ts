@@ -1,9 +1,10 @@
+import {API_BASE_URL} from '@/config/constants.js';
 import axios from 'axios'
 
 axios.defaults.withCredentials = true
 
 const API = axios.create({
-  baseURL: 'http://localhost:8000/api/v1'
+  baseURL: API_BASE_URL
 });
 
 // API.interceptors.request.use((request) => {

@@ -33,7 +33,7 @@ const logOut = () => {
       <!--v-model="drawer" app mini-variant-->
       <v-navigation-drawer :width="400" absolute class="drawer pt-[7dvh]" mobile-break-point="0">
         <v-list-item
-          :title="`Bienvenido devuelta, ${useAuthUser.authUser?.name}`"
+          :title="`Bienvenido de vuelta, ${useAuthUser.authUser?.name}`"
           subtitle="Menu de navegacion"
         ></v-list-item>
         <v-divider></v-divider>
